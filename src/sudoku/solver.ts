@@ -7,7 +7,7 @@ export class Solver {
     this.grid = grid;
   }
 
-  solve() {
+  solve(): Array<number> {
     let sudoku: Array<number> = this.grid.getArrayGrid();
     let solved: boolean = false;
 
