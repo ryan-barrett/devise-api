@@ -24,7 +24,6 @@ export class Server {
   }
 
   start(): Promise<any> {
-    // this.app.use(bodyParser.json());
     return new Promise((resolve, reject) => {
       try {
         this.listener = this.app.listen(this.port, () => {
