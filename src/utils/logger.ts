@@ -1,3 +1,3 @@
 import bunyan from 'bunyan';
 
-export const logger: bunyan = bunyan.createLogger({ name: 'CovidTracker' });
+export const logger: bunyan = bunyan.createLogger({ name: 'Sudoku' });

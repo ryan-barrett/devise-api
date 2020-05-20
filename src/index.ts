@@ -1,6 +1,6 @@
 import { Server } from './server';
-import getSudokuGraphql from './graphql/sudokuSchema';
+import schema from './graphql/schema';
 
-const sudokuServer = new Server(8080, getSudokuGraphql());
+const sudokuServer = new Server(8080, schema());
 
 sudokuServer.start();

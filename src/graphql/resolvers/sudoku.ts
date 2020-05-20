@@ -1,6 +1,6 @@
-import { Grid } from '../sudoku/grid';
-import { Solver } from '../sudoku/solver';
-import { logger } from '../utils/logger';
+import { Grid } from '../../sudoku/grid';
+import { Solver } from '../../sudoku/solver';
+import { logger } from '../../utils/logger';
 
 export const solve = (board: Array<number>) => {
   try {

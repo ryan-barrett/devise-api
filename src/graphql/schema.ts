@@ -1,5 +1,5 @@
 const { buildSchema } = require('graphql');
-import { solve } from '../resolvers/sudoku';
+import { solve } from './resolvers/sudoku';
 import { logger } from '../utils/logger';
 
 interface boardInput {
