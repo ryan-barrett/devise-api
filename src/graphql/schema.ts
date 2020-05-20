@@ -1,4 +1,4 @@
-const { buildSchema } = require('graphql');
+import { buildSchema } from 'graphql';
 import { solve } from './resolvers/sudoku';
 import { logger } from '../utils/logger';
 
