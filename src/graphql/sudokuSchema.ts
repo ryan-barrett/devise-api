@@ -1,5 +1,6 @@
 const { buildSchema } = require('graphql');
 import { solve } from '../resolvers/sudoku';
+import { logger } from '../utils/logger';
 
 interface boardInput {
   input: Array<number>;
@@ -15,6 +16,7 @@ type Query {
   const root = {
     solve: (args: boardInput) => {
       const { input } = args;
+      logger.info({ event: 'received request', input});
       return solve(input);
     },
   };

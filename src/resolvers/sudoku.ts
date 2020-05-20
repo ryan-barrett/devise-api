@@ -1,5 +1,6 @@
 import { Grid } from '../sudoku/grid';
 import { Solver } from '../sudoku/solver';
+import { logger } from '../utils/logger';
 
 export const solve = (board: Array<number>) => {
   try {
@@ -8,7 +9,7 @@ export const solve = (board: Array<number>) => {
     return solver.solve();
   } catch (error) {
     const { stack } = error;
-    console.error({ error, stack });
-    return 'Error solving puzzle';
+    logger.error({ event: 'Error solving puzzle', error, stack });
+    throw error;
   }
 };
