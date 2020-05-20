@@ -1,5 +1,12 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+const graphqlHTTP = require('express-graphql');
+
+interface graphqlConfig {
+  schema: any;
+  rootValue: any;
+  graphql?: boolean;
+}
 
 export class Server {
   private listener: any;
@@ -9,18 +16,18 @@ export class Server {
   /**
    *
    * @param port
-   * @param initRoutes
+   * @param graphql - graphql config containing schema
    * @param optionalMiddleWare - an array of optional additional middleware to apply to the server
    */
   constructor(
     port: number,
-    initRoutes: Function,
+    graphql: graphqlConfig,
     optionalMiddleWare: Array<Function> = []
   ) {
     this.port = port;
     this.applyMiddleware([bodyParser.json(), bodyParser.urlencoded()]);
     this.applyMiddleware(optionalMiddleWare);
-    initRoutes(this);
+    this.app.use('/graphql', graphqlHTTP(graphql));
   }
 
   start(): Promise<any> {

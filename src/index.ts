@@ -1,6 +1,6 @@
 import { Server } from './server';
-import initSudokuRoutes from './routes/sudokuRoutes';
+import getSudokuGraphql from './graphql/sudokuSchema';
 
-const sudokuServer = new Server(8080, initSudokuRoutes);
+const sudokuServer = new Server(8080, getSudokuGraphql());
 
 sudokuServer.start();

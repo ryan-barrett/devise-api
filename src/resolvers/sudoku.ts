@@ -1,14 +1,14 @@
 import { Grid } from '../sudoku/grid';
 import { Solver } from '../sudoku/solver';
 
-export const solve = (req: any, res: any) => {
+export const solve = (board: Array<number>) => {
   try {
-    const grid = new Grid(req.body.grid);
+    const grid = new Grid(board);
     const solver = new Solver(grid);
-    res.send(solver.solve());
+    return solver.solve();
   } catch (error) {
     const { stack } = error;
     console.error({ error, stack });
-    res.send('Error solving puzzle');
+    return 'Error solving puzzle';
   }
 };
