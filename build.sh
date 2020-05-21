@@ -5,9 +5,13 @@
 tsc # compile typescript to JS
 docker build -t ryanbarrett1/sudoku . # build docker image
 
+# kill the container if it is running
+if [ "$(docker inspect -f '{{.State.Running}}' sudoku 2>/dev/null)" = "true" ]; then
+    docker kill /sudoku;
+fi
+
 # get rid of the container if it already exists
 if [[ "$(docker images -q myimage:sudoku 2> /dev/null)" == "" ]]; then
-  docker kill /sudoku
   docker rm /sudoku
 fi
 
