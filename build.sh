@@ -16,3 +16,5 @@ if [[ "$(docker images -q myimage:sudoku 2> /dev/null)" == "" ]]; then
 fi
 
 docker run -d --name sudoku -p 8080:8080 ryanbarrett1/sudoku # run in docker
+sleep 1s
+/usr/bin/open -a "/Applications/Google Chrome.app" 'http://localhost:8080/graphql'
