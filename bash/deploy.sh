@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd terraform
+cd terraform || exit
 terraform init -input=false
 terraform apply -input=false -auto-approve
 cd ..

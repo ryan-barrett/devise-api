@@ -59,8 +59,4 @@ export class Server {
       this.app.use(middleware[i]);
     }
   }
-
-  getServer(): any {
-    return this.app;
-  }
 }
