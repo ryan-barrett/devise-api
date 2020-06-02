@@ -10,7 +10,6 @@ interface graphqlConfig {
 
 export class Server {
   private listener: any;
-  private port: Readonly<number>;
   private app: Readonly<any> = express();
 
   /**
@@ -20,12 +19,11 @@ export class Server {
    * @param optionalMiddleWare - an array of optional additional middleware to apply to the server
    */
   constructor(
-    port: number,
+    private readonly port: string,
     graphql: graphqlConfig,
     optionalMiddleWare: Array<Function> = []
   ) {
-    this.port = port;
-    this.applyMiddleware([bodyParser.json(), bodyParser.urlencoded()]);
+    // this.applyMiddleware([bodyParser.json(), bodyParser.urlencoded()]);
     this.applyMiddleware(optionalMiddleWare);
     this.app.use('/graphql', graphqlHTTP(graphql));
   }
