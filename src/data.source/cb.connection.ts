@@ -55,9 +55,12 @@ class CouchbaseConnection {
 }
 
 const couchbaseUrl = process.env.COUCHBASE_URL || '8091';
+const cbUsername = process.env.CB_USERNAME || '';
+const cbPassword = process.env.CB_PASSWORD || '';
+
 export const connection = new CouchbaseConnection(couchbaseUrl, {
-  username: 'Administrator',
-  password: 'samick92',
+  username: cbUsername,
+  password: cbPassword,
 });
 
 export type {
