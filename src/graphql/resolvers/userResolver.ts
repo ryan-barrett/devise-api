@@ -16,7 +16,7 @@ export const getUser = async (userId: UserId) => {
 };
 
 export const createUser = async (newUserData: UserData): Promise<any> => {
-  newUserData.id = await generateId();
+  newUserData.id = `user-${await generateId()}`;
   newUserData.boards = [];
 
   try {
@@ -27,7 +27,6 @@ export const createUser = async (newUserData: UserData): Promise<any> => {
     logger.error({ event: 'error creating user', error });
     return new Error(`{ status: 500, message: 'error creating user' }`);
   }
-
   return await getUser(newUserData.id);
 };
 
@@ -52,6 +51,5 @@ export const updateUser = async (userData: UserData): Promise<any> => {
     logger.error({ event: 'error updating user', error });
     return new Error(`{ status: 500, message: 'error updating user' }`);
   }
-
   return await getUser(id);
 };

@@ -15,11 +15,19 @@ export class BoardModel {
     this.lastUpdated = lastUpdated;
   }
 
+  getId(): BoardId {
+    return this.id;
+  }
+
   static async find(boardId: BoardId) {
     const response = await connection.get(boardId);
     const { value } = response;
 
     if (!value) throw new Error('missing value from response');
     return value;
+  }
+
+  static async put(board: BoardModel) {
+    return await connection.upsert(board.getId(), board);
   }
 }

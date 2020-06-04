@@ -10,10 +10,6 @@ type User {
   boards: [String]
 }
 
-type Query {
-  getUser(input: String!): User
-}
-
 input userInput {
   id: String
   userName: String
@@ -21,9 +17,26 @@ input userInput {
   boards: [String]
 }
 
+type Board {
+  id: String!
+  name: String!
+}
+
+input boardInput {
+  id: String
+  name: String
+}
+
+type Query {
+  getUser(input: String!): User
+  getBoard(input: String!): Board
+}
+
 type Mutation {
   createUser(input: userInput): User
   updateUser(input: userInput): User
+  createBoard(input: boardInput): Board
+  updateBoard(input: boardInput): Board
 }
 `);
 

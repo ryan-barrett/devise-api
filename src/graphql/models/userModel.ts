@@ -17,7 +17,7 @@ export class UserModel {
     this.boards = boards;
   }
 
-  getId() {
+  getId(): UserId {
     return this.id;
   }
 
