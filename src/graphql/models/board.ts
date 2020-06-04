@@ -21,12 +21,6 @@ export class Board {
     this.lastUpdated = lastUpdated;
   }
 
-  updateBoard(data: BoardData): void {
-    const { name, lastUpdated } = data;
-    this.name = name;
-    this.lastUpdated = lastUpdated;
-  }
-
   static async find(boardId: BoardId) {
     const { rows } = await connection.query(`SELECT b.* FROM b WHERE meta().id = ${boardId}`);
     // @ts-ignore

@@ -26,9 +26,9 @@ const getBoard = (boardId: number) => {
 
 export const getUser = async (userId: UserId) => {
   try {
-    return await User.find(userId)
+    return await User.find(userId);
   } catch (error) {
-    logger.error({ event: 'error getting user', error});
+    logger.error({ event: 'error getting user', error });
   }
 };
 
@@ -40,10 +40,30 @@ export const createUser = async (newUserData: UserData): Promise<any> => {
   try {
     const newUser = new User(newUserData);
     const response = await User.put(newUser);
-    logger.info({ event: 'new user created', response})
+    logger.info({ event: 'new user created', response });
   } catch (error) {
     logger.error({ event: 'error creating user', error });
   }
 
   return await getUser(newUserData.id);
+};
+
+export const updateUser = async (userData: UserData): Promise<any> => {
+  const { id, userName, email, boards } = userData;
+  const existingUser = await User.find(id);
+
+  const { userName: existingUserName, email: existingEmail, boards: existingBoards } = existingUser;
+  existingUser.userName = userName !== undefined ? userName : existingUserName;
+  existingUser.email = email !== undefined ? email : existingEmail;
+  existingUser.boards = boards !== undefined ? boards : existingBoards;
+
+  try {
+    const updatedUser = new User(existingUser);
+    const response = await User.put(updatedUser);
+    logger.info({ event: 'user updated', id, response });
+  } catch (error) {
+    logger.error({ event: 'error updating user', error });
+  }
+
+  return await getUser(id);
 };

@@ -31,13 +31,6 @@ export class User {
     return this.id;
   }
 
-  updateUser(data: UserData) {
-    const { userName, email, boards } = data;
-    this.userName = userName;
-    this.email = email;
-    this.boards = boards;
-  }
-
   static async find(userId: UserId): Promise<User> {
     const response = await connection.get(userId);
     const { value } = response;

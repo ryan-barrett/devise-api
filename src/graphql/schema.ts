@@ -1,6 +1,6 @@
 import { buildSchema } from 'graphql';
 import { logger } from '../utils/logger';
-import { createUser, getUser } from './resolvers';
+import { createUser, getUser, updateUser } from './resolvers';
 import { User, UserId } from './models/user';
 
 interface boardInput {
@@ -28,13 +28,15 @@ type Query {
 }
 
 input userInput {
+  id: String
   userName: String
   email: String
+  boards: [String]
 }
 
 type Mutation {
   createUser(input: userInput): User
-  updateUser(id: ID!, input: userInput): User
+  updateUser(input: userInput): User
 }
 `);
 
@@ -54,9 +56,13 @@ type Mutation {
       logger.info({ event: 'received createUser request', userName, email });
       return await createUser(input);
     },
-    updateUser: (args: UserInput) => {
-      const { id, userName, email } = args;
-      logger.info({ event: 'received updateUser request', id, userName, email });
+    updateUser: async (args: UserInput) => {
+      // @ts-ignore
+      const { input } = args;
+      const { id, userName, email, boards } = input;
+
+      logger.info({ event: 'received updateUser request', id, userName, email, boards });
+      return await updateUser(input);
     }
   };
 

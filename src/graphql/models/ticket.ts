@@ -32,15 +32,6 @@ export class Ticket {
     this.description = description;
   }
 
-  updateTicket(data: TicketData): void {
-    const { user, board, title, estimate, description } = data;
-    this.user = user;
-    this.board = board;
-    this.title = title;
-    this.estimate = estimate;
-    this.description = description;
-  }
-
   static async find(ticketId: TicketId) {
     const { rows } = await connection.query(`SELECT b.* FROM b WHERE meta().id = ${ticketId}`);
     // @ts-ignore
