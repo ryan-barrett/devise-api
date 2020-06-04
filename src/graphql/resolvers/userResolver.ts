@@ -33,11 +33,10 @@ export const createUser = async (newUserData: UserData): Promise<any> => {
 
 export const updateUser = async (userData: UserData): Promise<any> => {
   const { id, userName, email, boards } = userData;
-  if (boards !== undefined && !validBoards(boards)) {
+  if (boards !== undefined && !await validBoards(boards)) {
     logger.error({ event: 'cannot update user with invalid boards', boards });
     return new Error(`{ status: 400, message: 'cannot update user with invalid boards' }`);
   }
-
   const existingUser = await UserModel.find(id);
 
   const { userName: existingUserName, email: existingEmail, boards: existingBoards } = existingUser;

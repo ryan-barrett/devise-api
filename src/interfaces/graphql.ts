@@ -7,3 +7,9 @@ export interface UserInput {
   userName: string;
   email: string;
 }
+
+export interface graphqlConfig {
+  schema: any;
+  rootValue: any;
+  graphql?: boolean;
+}

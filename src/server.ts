@@ -1,12 +1,7 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import graphqlHTTP from 'express-graphql';
 
-interface graphqlConfig {
-  schema: any;
-  rootValue: any;
-  graphql?: boolean;
-}
+import { graphqlConfig } from './interfaces/graphql';
 
 export class Server {
   private listener: any;
@@ -23,7 +18,6 @@ export class Server {
     graphql: graphqlConfig,
     optionalMiddleWare: Array<Function> = []
   ) {
-    // this.applyMiddleware([bodyParser.json(), bodyParser.urlencoded()]);
     this.applyMiddleware(optionalMiddleWare);
     this.app.use('/graphql', graphqlHTTP(graphql));
   }
