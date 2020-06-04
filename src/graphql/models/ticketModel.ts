@@ -1,20 +1,9 @@
 import { connection } from '../../data.source/cb.connection';
 
-import type { Id, BoardId } from './board';
-import type { UserId } from './user';
+import { BoardId, TicketId, UserId } from '../../types/appTypes';
+import { TicketData } from '../../interfaces/ticket';
 
-type TicketId = Id;
-
-export interface TicketData {
-  id: TicketId; // not included during update
-  user: UserId;
-  board: BoardId;
-  title: string;
-  estimate: number;
-  description: string;
-}
-
-export class Ticket {
+export class TicketModel {
   id: TicketId;
   user: UserId;
   board: BoardId;
@@ -35,10 +24,6 @@ export class Ticket {
   static async find(ticketId: TicketId) {
     const { rows } = await connection.query(`SELECT b.* FROM b WHERE meta().id = ${ticketId}`);
     // @ts-ignore
-    rows.map((row: UserDataT) => new this(row))
+    rows.map((row: UserDataT) => new this(row));
   }
-}
-
-export type {
-  TicketId,
 }

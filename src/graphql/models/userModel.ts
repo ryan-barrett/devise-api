@@ -1,19 +1,9 @@
 import { connection } from '../../data.source/cb.connection';
 
-import type { Id, BoardId } from './board';
+import { BoardId, UserId } from '../../types/appTypes';
+import { UserData } from '../../interfaces/user';
 
-type UserId = Id;
-
-export interface UserData {
-  id: UserId;
-  userName: string;
-  email: string;
-  boards: Array<BoardId>;
-}
-
-type UserDataT = { id: UserId, userName: string, email: string, boards: Array<BoardId> }
-
-export class User {
+export class UserModel {
   id: UserId;
   userName: string;
   email: string;
@@ -31,7 +21,7 @@ export class User {
     return this.id;
   }
 
-  static async find(userId: UserId): Promise<User> {
+  static async find(userId: UserId): Promise<UserModel> {
     const response = await connection.get(userId);
     const { value } = response;
 
@@ -39,11 +29,7 @@ export class User {
     return value;
   }
 
-  static async put(user: User) {
+  static async put(user: UserModel) {
     return await connection.upsert(user.getId(), user);
   }
 }
-
-export type {
-  UserId
-};

@@ -1,29 +1,7 @@
 import { Cluster } from 'couchbase';
-import { id } from 'aws-sdk/clients/datapipeline';
 
-interface CouchbaseConnectionOptions {
-  username: string;
-  password: string;
-}
-
-type CbConnectionUrl = string;
-
-type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [property: string]: Json }
-  | Json[];
-
-interface QueryResult {
-  meta: Json;
-  rows: Array<Json>;
-}
-
-interface CouchbaseConnection {
-  new(url: CbConnectionUrl, options: CouchbaseConnectionOptions): CouchbaseConnection;
-}
+import type { CbConnectionUrl, Id } from '../types/appTypes';
+import { CouchbaseConnectionOptions, QueryResult } from '../interfaces/couchbase';
 
 class CouchbaseConnection {
   private connection: any;
@@ -45,7 +23,7 @@ class CouchbaseConnection {
     return await this.collection.upsert(key, document);
   }
 
-  async get(key: id) {
+  async get(key: Id) {
     return await this.collection.get(key);
   }
 
@@ -62,8 +40,3 @@ export const connection = new CouchbaseConnection(couchbaseUrl, {
   username: cbUsername,
   password: cbPassword,
 });
-
-export type {
-  Json,
-  CbConnectionUrl,
-};

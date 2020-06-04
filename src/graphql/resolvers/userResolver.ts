@@ -1,48 +1,31 @@
-import { generateId } from '../utils/generateId';
-import { logger } from '../utils/logger';
-import { Board } from './models/board';
-import { User, UserData } from './models/user';
-import { Ticket } from './models/ticket';
+import { generateId } from '../../utils/generateId';
+import { UserModel } from '../models/userModel';
+import { validBoards } from './helpers';
+import { logger } from '../../utils/logger';
 
-import type { Id, BoardId } from './models/board';
-import type { UserId } from './models/user';
-import type { TicketId } from './models/ticket';
-
-const getTicket = (ticketId: number) => {
-  logger.debug({ event: 'get single ticket from CB', ticketId });
-};
-
-const getTickets = (userId: number) => {
-  logger.debug({ event: 'get tickets from CB', userId });
-};
-
-// const createTicket = (userId: UserId) => {
-//
-// }
-
-const getBoard = (boardId: number) => {
-  logger.debug({ event: 'get all tickets associated with a board', boardId });
-};
+import type { UserId } from '../../types/appTypes';
+import { UserData } from '../../interfaces/user';
 
 export const getUser = async (userId: UserId) => {
   try {
-    return await User.find(userId);
+    return await UserModel.find(userId);
   } catch (error) {
     logger.error({ event: 'error getting user', error });
+    return new Error(`{ status: 500, message: 'error fetching user' }`);
   }
 };
-
 
 export const createUser = async (newUserData: UserData): Promise<any> => {
   newUserData.id = await generateId();
   newUserData.boards = [];
 
   try {
-    const newUser = new User(newUserData);
-    const response = await User.put(newUser);
+    const newUser = new UserModel(newUserData);
+    const response = await UserModel.put(newUser);
     logger.info({ event: 'new user created', response });
   } catch (error) {
     logger.error({ event: 'error creating user', error });
+    return new Error(`{ status: 500, message: 'error creating user' }`);
   }
 
   return await getUser(newUserData.id);
@@ -50,7 +33,12 @@ export const createUser = async (newUserData: UserData): Promise<any> => {
 
 export const updateUser = async (userData: UserData): Promise<any> => {
   const { id, userName, email, boards } = userData;
-  const existingUser = await User.find(id);
+  if (boards !== undefined && !validBoards(boards)) {
+    logger.error({ event: 'cannot update user with invalid boards', boards });
+    return new Error(`{ status: 400, message: 'cannot update user with invalid boards' }`);
+  }
+
+  const existingUser = await UserModel.find(id);
 
   const { userName: existingUserName, email: existingEmail, boards: existingBoards } = existingUser;
   existingUser.userName = userName !== undefined ? userName : existingUserName;
@@ -58,11 +46,12 @@ export const updateUser = async (userData: UserData): Promise<any> => {
   existingUser.boards = boards !== undefined ? boards : existingBoards;
 
   try {
-    const updatedUser = new User(existingUser);
-    const response = await User.put(updatedUser);
+    const updatedUser = new UserModel(existingUser);
+    const response = await UserModel.put(updatedUser);
     logger.info({ event: 'user updated', id, response });
   } catch (error) {
     logger.error({ event: 'error updating user', error });
+    return new Error(`{ status: 500, message: 'error updating user' }`);
   }
 
   return await getUser(id);
