@@ -1,6 +1,6 @@
 import { generateId } from '../../utils/generateId';
 import { UserModel } from '../models/userModel';
-import { validBoards } from './helpers';
+import { validateBoards } from './helpers';
 import { logger } from '../../utils/logger';
 
 import type { UserId } from '../../types/appTypes';
@@ -32,7 +32,7 @@ export const createUser = async (newUserData: UserData): Promise<any> => {
 
 export const updateUser = async (userData: UserData): Promise<any> => {
   const { id, userName, email, boards } = userData;
-  if (boards !== undefined && !await validBoards(boards)) {
+  if (boards !== undefined && !await validateBoards(boards)) {
     logger.error({ event: 'cannot update user with invalid boards', boards });
     return new Error(`{ status: 400, message: 'cannot update user with invalid boards' }`);
   }

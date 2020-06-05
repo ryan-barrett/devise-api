@@ -1,3 +1,5 @@
+import { BoardId } from '../types/appTypes';
+
 export interface boardInput {
   input: Array<string>;
 }
@@ -11,6 +13,15 @@ export interface UserInput {
 export interface BoardInput {
   id?: string,
   name: string,
+}
+
+export interface TicketInput {
+  id?: string,
+  user: string,
+  board: BoardId,
+  title: string,
+  estimate: number,
+  description: string,
 }
 
 export interface graphqlConfig {

@@ -1,9 +1,10 @@
-import { BoardId, UserId } from '../types/appTypes';
 import { logger } from '../utils/logger';
 import { createUser, getUser, updateUser } from './resolvers/userResolver';
 import { createBoard, getBoard, updateBoard } from './resolvers/boardResolver';
+import { createTicket, updateTicket, getTicket, getTickets } from './resolvers/ticketResolver';
 
-import { UserInput, BoardInput } from '../interfaces/graphql';
+import type { BoardId, TicketId, UserId } from '../types/appTypes';
+import { UserInput, BoardInput, TicketInput } from '../interfaces/graphql';
 
 export const root = {
   getUser: async (args: UserId) => {
@@ -68,5 +69,47 @@ export const root = {
       return new Error(`{ status: 400, message: 'no id specified for update board action' }`);
     }
     return await updateBoard(input);
-  }
+  },
+
+  getTicket: async (args: TicketId) => {
+    // @ts-ignore
+    const { input } = args;
+
+    logger.info({ event: 'received getTicket request', input });
+    return await getTicket(input);
+  },
+
+  getTickets: async (args: Array<TicketId>) => {
+    // @ts-ignore
+    const { input } = args;
+
+    logger.info({ event: 'received getTickets request', input });
+    return await getTickets(input);
+  },
+
+  createTicket: async (args: TicketInput) => {
+    // @ts-ignore
+    const { input } = args;
+    const { title, user, board, estimate, description } = input;
+    logger.info({ event: 'received createTicket request', title });
+
+    if (title === undefined) {
+      logger.error({ event: 'no board name specified for create ticket action' });
+      return new Error(`{ status: 400, message: 'no title specified for creating new board' }`);
+    }
+    return await createTicket(input);
+  },
+
+  updateTicket: async (args: TicketInput) => {
+    // @ts-ignore
+    const { input } = args;
+    const { id, title, user, board, estimate, description } = input;
+    logger.info({ event: 'received updateTicket request', id });
+
+    if (id === undefined) {
+      logger.error({ event: 'no id specified for update ticket action' });
+      return new Error(`{ status: 400, message: 'no id specified for update ticket action' }`);
+    }
+    return await updateTicket(input);
+  },
 };

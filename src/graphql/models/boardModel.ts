@@ -6,12 +6,14 @@ import { BoardId } from '../../types/appTypes';
 export class BoardModel {
   id: string;
   name: string;
+  dateCreated: Date;
   lastUpdated: Date;
 
   constructor(data: BoardData) {
-    const { name, lastUpdated, id } = data;
+    const { name, lastUpdated, dateCreated, id } = data;
     this.id = id;
     this.name = name;
+    this.dateCreated = dateCreated;
     this.lastUpdated = lastUpdated;
   }
 
@@ -19,7 +21,7 @@ export class BoardModel {
     return this.id;
   }
 
-  static async find(boardId: BoardId) {
+  static async find(boardId: BoardId): Promise<BoardModel> {
     const response = await connection.get(boardId);
     const { value } = response;
 

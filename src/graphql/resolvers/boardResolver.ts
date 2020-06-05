@@ -16,6 +16,7 @@ export const getBoard = async (boardId: BoardId) => {
 
 export const createBoard = async (newBoardData: BoardData): Promise<any> => {
   newBoardData.id = `board-${await generateId()}`;
+  newBoardData.dateCreated = new Date();
   newBoardData.lastUpdated = new Date();
 
   try {
@@ -35,7 +36,7 @@ export const updateBoard = async (boardData: BoardData): Promise<any> => {
 
   try {
     existingBoard.name = name ? name : existingBoard.name;
-    existingBoard.date = new Date();
+    existingBoard.lastUpdated = new Date();
     const updatedBoard = new BoardModel(existingBoard);
     const response = await BoardModel.put(updatedBoard);
     logger.info({ event: 'board updated', id, response });
