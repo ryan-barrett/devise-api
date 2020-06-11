@@ -1,5 +1,6 @@
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
+import { logger } from './utils/logger';
 
 import { graphqlConfig } from './interfaces/graphql';
 
@@ -26,7 +27,7 @@ export class Server {
     return new Promise((resolve, reject) => {
       try {
         this.listener = this.app.listen(this.port, () => {
-          console.log(`running on port ${this.port}`);
+          logger.info({ event: 'server started' }, `running on port ${this.port}`);
         });
         resolve();
       } catch (error) {
