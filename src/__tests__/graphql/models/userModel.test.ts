@@ -1,6 +1,8 @@
 import { UserModel } from '../../../graphql/models/userModel';
 import { connection } from '../../../data.source/cb.connection';
 
+import Mock = jest.Mock;
+
 describe('userModel.ts', () => {
   const stubUserData = {
     id: '1',
@@ -15,8 +17,15 @@ describe('userModel.ts', () => {
     });
   });
 
-  connection.get = jest.fn(() => cbResponse);
-  connection.upsert = jest.fn(() => cbResponse);
+  let getCallback: Mock<Promise<any>>;
+  let upsertCallback: Mock<Promise<any>>;
+  beforeEach(() => {
+    getCallback = jest.fn(() => cbResponse);
+    upsertCallback = jest.fn(() => cbResponse);
+
+    connection.get = getCallback;
+    connection.upsert = upsertCallback;
+  });
 
   it('User should contain expected properties', () => {
     const user = new UserModel(stubUserData);
@@ -32,10 +41,25 @@ describe('userModel.ts', () => {
   });
 
   it('should return updated user from static put method', async () => {
-    const user = await UserModel.find('1');
+    const response = await UserModel.find('1');
+    const user = new UserModel(response);
     user.userName = 'steve';
-    const updatedUser = UserModel.put(user);
-    expect(user.id).toBe('1');
+    await UserModel.put(user);
+    const secondResponse = await UserModel.find('1');
+    const updatedUser = new UserModel(secondResponse);
+    expect(updatedUser.getId()).toBe('1');
+  });
+
+  it('should call connection.get on find request', async () => {
+    await UserModel.find('1');
+    expect(getCallback.mock.calls.length).toBe(1);
+  });
+
+  it('should call connection.upsert on put request', async () => {
+    const data = await UserModel.find('1');
+    const user = new UserModel(data);
+    await UserModel.put(user);
+    expect(upsertCallback.mock.calls.length).toBe(1);
   });
 
   it('should return id from getId method', () => {
