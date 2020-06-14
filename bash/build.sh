@@ -5,7 +5,7 @@ if (! docker stats --no-stream); then
   exit 1
 fi
 
-source .env
+source .env # path to environment variables
 export $(cut -d= -f1 .env)
 
 # install packages to give access to types
