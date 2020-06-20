@@ -1,9 +1,9 @@
-import { logger } from '../../utils/logger';
-import { generateId } from '../../utils/generateId';
-import { BoardModel } from '../models/boardModel';
+import { logger } from '../utils/logger';
+import { generateId } from '../utils/generateId';
+import { BoardModel } from '../models/board.model';
 
-import { BoardData } from '../../interfaces/board';
-import { BoardId } from '../../types/appTypes';
+import { BoardData } from '../interfaces/board';
+import { BoardId } from '../types/appTypes';
 
 export const getBoard = async (boardId: BoardId) => {
   try {

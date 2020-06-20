@@ -1,10 +1,10 @@
-import { generateId } from '../../utils/generateId';
-import { UserModel } from '../models/userModel';
+import { generateId } from '../utils/generateId';
+import { UserModel } from '../models/user.model';
 import { validateBoards } from './helpers';
-import { logger } from '../../utils/logger';
+import { logger } from '../utils/logger';
 
-import type { UserId } from '../../types/appTypes';
-import { UserData } from '../../interfaces/user';
+import type { UserId } from '../types/appTypes';
+import { UserData } from '../interfaces/user';
 
 export const getUser = async (userId: UserId) => {
   try {

@@ -1,7 +1,7 @@
 import { logger } from '../utils/logger';
-import { createUser, getUser, updateUser } from './resolvers/userResolver';
-import { createBoard, getBoard, updateBoard } from './resolvers/boardResolver';
-import { createTicket, updateTicket, getTicket, getTickets } from './resolvers/ticketResolver';
+import { createUser, getUser, updateUser } from '../resolvers/userResolver';
+import { createBoard, getBoard, updateBoard } from '../resolvers/boardResolver';
+import { createTicket, updateTicket, getTicket, getTickets } from '../resolvers/ticketResolver';
 
 import type { BoardId, TicketId, UserId } from '../types/appTypes';
 import { UserInput, BoardInput, TicketInput } from '../interfaces/graphql';

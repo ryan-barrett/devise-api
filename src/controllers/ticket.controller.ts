@@ -1,10 +1,10 @@
-import { logger } from '../../utils/logger';
-import { generateId } from '../../utils/generateId';
-import { TicketModel } from '../models/ticketModel';
+import { logger } from '../utils/logger';
+import { generateId } from '../utils/generateId';
+import { TicketModel } from '../models/ticket.model';
 import { validateUser } from './helpers';
 
-import { TicketData } from '../../interfaces/ticket';
-import type { TicketId } from '../../types/appTypes';
+import { TicketData } from '../interfaces/ticket';
+import type { TicketId } from '../types/appTypes';
 
 export const getTicket = async (ticketId: TicketId) => {
   try {
