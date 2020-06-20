@@ -1,9 +1,9 @@
-import { BoardModel } from '../../../graphql/models/boardModel';
+import { BoardModel } from '../../../models/board.model';
 import { connection } from '../../../data.source/cb.connection';
 
 import Mock = jest.Mock;
 
-describe('boardModel.ts', () => {
+describe('board.model.ts', () => {
   const stubBoardData = {
     id: '1',
     name: 'testBoard',

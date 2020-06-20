@@ -1,5 +1,6 @@
 import { buildSchema } from 'graphql';
-import { root } from './handlers';
+
+import { root } from './resolvers';
 
 export default () => {
   const schema = buildSchema(`

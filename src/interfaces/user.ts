@@ -1,4 +1,4 @@
-import type { BoardId, UserId } from '../types/appTypes';
+import type { BoardId, UserId } from '../types';
 
 export interface UserData {
   id: UserId;

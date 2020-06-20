@@ -1,10 +1,11 @@
 import { logger } from '../utils/logger';
-import { createUser, getUser, updateUser } from '../resolvers/userResolver';
-import { createBoard, getBoard, updateBoard } from '../resolvers/boardResolver';
-import { createTicket, updateTicket, getTicket, getTickets } from '../resolvers/ticketResolver';
 
-import type { BoardId, TicketId, UserId } from '../types/appTypes';
-import { UserInput, BoardInput, TicketInput } from '../interfaces/graphql';
+import { UserController } from '../controllers/user.controller';
+import { BoardController } from '../controllers/board.controller';
+import { TicketController } from '../controllers/ticket.controller';
+
+import type { BoardId, TicketId, UserId } from '../types';
+import { UserInput, BoardInput, TicketInput } from '../interfaces';
 
 export const root = {
   getUser: async (args: UserId) => {
@@ -12,7 +13,7 @@ export const root = {
     const { input } = args;
 
     logger.info({ event: 'received getUser request', input });
-    return await getUser(input);
+    return await UserController.Get(input);
   },
 
   createUser: async (args: UserInput) => {
@@ -21,7 +22,7 @@ export const root = {
     const { userName, email } = input;
 
     logger.info({ event: 'received createUser request', userName, email });
-    return await createUser(input);
+    return await UserController.Create(input);
   },
 
   updateUser: async (args: UserInput) => {
@@ -34,7 +35,7 @@ export const root = {
       logger.error({ event: 'no id specified for update user action' });
       return new Error(`{ status: 400, message: 'no id specified for update user action' }`);
     }
-    return await updateUser(input);
+    return await UserController.Update(input);
   },
 
   getBoard: async (args: BoardId) => {
@@ -42,7 +43,7 @@ export const root = {
     const { input } = args;
 
     logger.info({ event: 'received getBoard request', input });
-    return await getBoard(input);
+    return await BoardController.Get(input);
   },
 
   createBoard: async (args: BoardInput) => {
@@ -55,7 +56,7 @@ export const root = {
       logger.error({ event: 'no board name specified for create board action' });
       return new Error(`{ status: 400, message: 'no name specified for creating new board' }`);
     }
-    return await createBoard(input);
+    return await BoardController.Create(input);
   },
 
   updateBoard: async (args: BoardInput) => {
@@ -68,7 +69,7 @@ export const root = {
       logger.error({ event: 'no id specified for update board action' });
       return new Error(`{ status: 400, message: 'no id specified for update board action' }`);
     }
-    return await updateBoard(input);
+    return await BoardController.Update(input);
   },
 
   getTicket: async (args: TicketId) => {
@@ -76,7 +77,7 @@ export const root = {
     const { input } = args;
 
     logger.info({ event: 'received getTicket request', input });
-    return await getTicket(input);
+    return await TicketController.Get(input);
   },
 
   getTickets: async (args: Array<TicketId>) => {
@@ -84,7 +85,7 @@ export const root = {
     const { input } = args;
 
     logger.info({ event: 'received getTickets request', input });
-    return await getTickets(input);
+    return await TicketController.GetMultiple(input);
   },
 
   createTicket: async (args: TicketInput) => {
@@ -97,7 +98,7 @@ export const root = {
       logger.error({ event: 'no board name specified for create ticket action' });
       return new Error(`{ status: 400, message: 'no title specified for creating new board' }`);
     }
-    return await createTicket(input);
+    return await TicketController.Create(input);
   },
 
   updateTicket: async (args: TicketInput) => {
@@ -110,6 +111,6 @@ export const root = {
       logger.error({ event: 'no id specified for update ticket action' });
       return new Error(`{ status: 400, message: 'no id specified for update ticket action' }`);
     }
-    return await updateTicket(input);
+    return await TicketController.Update(input);
   },
 };

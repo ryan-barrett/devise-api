@@ -1,9 +1,9 @@
-import { TicketModel } from '../../../graphql/models/ticketModel';
+import { TicketModel } from '../../../models/ticket.model';
 import { connection } from '../../../data.source/cb.connection';
 
 import Mock = jest.Mock;
 
-describe('ticketModel.ts', () => {
+describe('ticket.model.ts', () => {
   const stubTicketData = {
     id: '1',
     user: '2',

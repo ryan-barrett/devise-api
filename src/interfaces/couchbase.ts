@@ -1,5 +1,5 @@
-import type { Json } from '../types/appTypes';
-import { CbConnectionUrl } from '../types/appTypes';
+import type { Json } from '../types';
+import { CbConnectionUrl } from '../types';
 
 export interface CouchbaseConnectionOptions {
   username: string;

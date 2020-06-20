@@ -1,9 +1,9 @@
-import { UserModel } from '../../../graphql/models/userModel';
+import { UserModel } from '../../../models/user.model';
 import { connection } from '../../../data.source/cb.connection';
 
 import Mock = jest.Mock;
 
-describe('userModel.ts', () => {
+describe('user.model.ts', () => {
   const stubUserData = {
     id: '1',
     userName: 'ryan',

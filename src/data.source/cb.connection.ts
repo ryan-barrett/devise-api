@@ -1,6 +1,6 @@
 import { Cluster } from 'couchbase';
 
-import type { CbConnectionUrl, Id } from '../types/appTypes';
+import type { CbConnectionUrl, Id } from '../types';
 import { CouchbaseConnectionOptions, QueryResult } from '../interfaces/couchbase';
 
 class CouchbaseConnection {

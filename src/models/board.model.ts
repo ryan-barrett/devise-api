@@ -1,7 +1,7 @@
-import { connection } from '../../data.source/cb.connection';
+import { connection } from '../data.source/cb.connection';
 
-import { BoardData } from '../../interfaces/board';
-import { BoardId } from '../../types/appTypes';
+import { BoardData } from '../interfaces';
+import { BoardId } from '../types';
 
 export class BoardModel {
   id: string;

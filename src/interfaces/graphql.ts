@@ -1,4 +1,4 @@
-import { BoardId } from '../types/appTypes';
+import { BoardId } from '../types';
 
 export interface boardInput {
   input: Array<string>;
