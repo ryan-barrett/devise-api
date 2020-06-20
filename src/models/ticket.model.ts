@@ -1,7 +1,6 @@
 import { connection } from '../data.source/cb.connection';
 
-import { BoardId, TicketId, UserId } from '../../typescript/types';
-import { TicketData } from '../../typescript/interfaces';
+import { BoardId, TicketId, UserId, TicketData } from '../typescript';
 
 export class TicketModel {
   id: TicketId;

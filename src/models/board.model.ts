@@ -1,7 +1,6 @@
 import { connection } from '../data.source/cb.connection';
 
-import { BoardData } from '../../typescript/interfaces';
-import { BoardId } from '../../typescript/types';
+import { BoardData, BoardId } from '../typescript';
 
 export class BoardModel {
   id: string;

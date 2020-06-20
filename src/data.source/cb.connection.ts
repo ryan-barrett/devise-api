@@ -1,7 +1,6 @@
 import { Cluster } from 'couchbase';
 
-import type { CbConnectionUrl, Id } from '../../typescript/types';
-import { CouchbaseConnectionOptions, QueryResult } from '../../typescript/interfaces/couchbase';
+import type { CbConnectionUrl, Id, CouchbaseConnectionOptions, QueryResult } from '../typescript';
 
 class CouchbaseConnection {
   private connection: any;

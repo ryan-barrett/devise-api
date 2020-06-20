@@ -2,10 +2,9 @@ import { logger } from '../utils/logger';
 
 import { generateId } from '../utils/generate.id';
 import { UserModel } from '../models/user.model';
-import { validateBoards } from '../utils/controllers.utils';
+import { validateBoards } from '../utils/controller.utils';
 
-import type { UserId } from '../../typescript/types';
-import { UserData } from '../../typescript/interfaces';
+import type { UserId, UserData } from '../typescript';
 
 export class UserController {
   public static async Get(userId: UserId) {
