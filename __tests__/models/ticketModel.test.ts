@@ -1,5 +1,5 @@
-import { TicketModel } from '../../models/ticket.model';
-import { connection } from '../../data.source/cb.connection';
+import { TicketModel } from '../../src/models/ticket.model';
+import { connection } from '../../src/data.source/cb.connection';
 
 import Mock = jest.Mock;
 

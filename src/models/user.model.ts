@@ -1,7 +1,7 @@
 import { connection } from '../data.source/cb.connection';
 
-import { BoardId, UserId } from '../types';
-import { UserData } from '../interfaces';
+import { BoardId, UserId } from '../../types';
+import { UserData } from '../../interfaces';
 
 export class UserModel {
   id: UserId;

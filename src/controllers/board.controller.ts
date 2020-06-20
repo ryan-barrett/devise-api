@@ -3,8 +3,8 @@ import { logger } from '../utils/logger';
 import { generateId } from '../utils/generate.id';
 import { BoardModel } from '../models/board.model';
 
-import { BoardData } from '../interfaces';
-import { BoardId } from '../types';
+import { BoardData } from '../../interfaces';
+import { BoardId } from '../../types';
 
 export class BoardController {
   public static async Get(boardId: BoardId) {

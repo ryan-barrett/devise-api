@@ -4,8 +4,8 @@ import { generateId } from '../utils/generate.id';
 import { UserModel } from '../models/user.model';
 import { validateBoards } from '../utils/controllers.utils';
 
-import type { UserId } from '../types';
-import { UserData } from '../interfaces';
+import type { UserId } from '../../types';
+import { UserData } from '../../interfaces';
 
 export class UserController {
   public static async Get(userId: UserId) {

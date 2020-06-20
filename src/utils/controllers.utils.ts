@@ -1,7 +1,7 @@
 import { BoardModel } from '../models/board.model';
 import { UserModel } from '../models/user.model';
 
-import { BoardId, UserId } from '../types';
+import { BoardId, UserId } from '../../types';
 
 export const validateBoards = async (boards: Array<BoardId>): Promise<boolean> => {
   for (let board of boards) {

@@ -1,7 +1,7 @@
 import { connection } from '../data.source/cb.connection';
 
-import { BoardId, TicketId, UserId } from '../types';
-import { TicketData } from '../interfaces';
+import { BoardId, TicketId, UserId } from '../../types';
+import { TicketData } from '../../interfaces';
 
 export class TicketModel {
   id: TicketId;

@@ -4,8 +4,8 @@ import { generateId } from '../utils/generate.id';
 import { TicketModel } from '../models/ticket.model';
 import { validateUser } from '../utils/controllers.utils';
 
-import { TicketData } from '../interfaces';
-import type { TicketId } from '../types';
+import { TicketData } from '../../interfaces';
+import type { TicketId } from '../../types';
 
 export class TicketController {
   public static async Get(ticketId: TicketId) {

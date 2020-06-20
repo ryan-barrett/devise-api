@@ -4,8 +4,8 @@ import { UserController } from '../controllers/user.controller';
 import { BoardController } from '../controllers/board.controller';
 import { TicketController } from '../controllers/ticket.controller';
 
-import type { BoardId, TicketId, UserId } from '../types';
-import { UserInput, BoardInput, TicketInput } from '../interfaces';
+import type { BoardId, TicketId, UserId } from '../../types';
+import { UserInput, BoardInput, TicketInput } from '../../interfaces';
 
 export const root = {
   getUser: async (args: UserId) => {

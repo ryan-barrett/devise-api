@@ -1,5 +1,5 @@
-import { UserModel } from '../../models/user.model';
-import { connection } from '../../data.source/cb.connection';
+import { UserModel } from '../../src/models/user.model';
+import { connection } from '../../src/data.source/cb.connection';
 
 import Mock = jest.Mock;
 

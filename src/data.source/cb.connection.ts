@@ -1,7 +1,7 @@
 import { Cluster } from 'couchbase';
 
-import type { CbConnectionUrl, Id } from '../types';
-import { CouchbaseConnectionOptions, QueryResult } from '../interfaces/couchbase';
+import type { CbConnectionUrl, Id } from '../../types';
+import { CouchbaseConnectionOptions, QueryResult } from '../../interfaces/couchbase';
 
 class CouchbaseConnection {
   private connection: any;
