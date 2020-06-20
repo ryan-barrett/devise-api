@@ -2,7 +2,7 @@ import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import { logger } from './utils/logger';
 
-import { graphqlConfig } from '../interfaces/graphql';
+import { graphqlConfig } from '../typescript/interfaces/graphql';
 
 export class Server {
   private listener: any;
