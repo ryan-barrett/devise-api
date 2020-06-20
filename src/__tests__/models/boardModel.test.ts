@@ -1,5 +1,5 @@
-import { BoardModel } from '../../../models/board.model';
-import { connection } from '../../../data.source/cb.connection';
+import { BoardModel } from '../../models/board.model';
+import { connection } from '../../data.source/cb.connection';
 
 import Mock = jest.Mock;
 
