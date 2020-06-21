@@ -1,5 +1,4 @@
 import { connection } from '../data.source/cb.connection';
-
 import { BoardId, UserId, UserData } from '../typescript';
 
 export class UserModel {
@@ -20,7 +19,7 @@ export class UserModel {
     return this.id;
   }
 
-  static async find(userId: UserId): Promise<UserModel> {
+  static async Find(userId: UserId): Promise<UserModel> {
     const response = await connection.get(userId);
     const { value } = response;
 
@@ -28,7 +27,7 @@ export class UserModel {
     return value;
   }
 
-  static async put(user: UserModel) {
+  static async Put(user: UserModel) {
     return await connection.upsert(user.getId(), user);
   }
 }

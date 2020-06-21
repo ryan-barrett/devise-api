@@ -1,5 +1,4 @@
 import { uuid } from 'uuidv4';
-
 import { connection } from '../data.source/cb.connection';
 
 export const generateId = async (): Promise<string> => {

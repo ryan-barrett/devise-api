@@ -1,5 +1,4 @@
 import { Cluster } from 'couchbase';
-
 import type { CbConnectionUrl, Id, CouchbaseConnectionOptions, QueryResult } from '../typescript';
 
 class CouchbaseConnection {
@@ -27,7 +26,7 @@ class CouchbaseConnection {
   }
 
   async count(): Promise<QueryResult> {
-    return await this.connection.query(`SELECT COUNT(*) FROM b`); // TODO: paramterize bucket
+    return await this.connection.query(`SELECT COUNT(*) FROM b`); // TODO: parameterize bucket
   }
 }
 
