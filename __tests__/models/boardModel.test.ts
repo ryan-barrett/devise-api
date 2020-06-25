@@ -27,7 +27,7 @@ describe('board.model.ts', () => {
     connection.upsert = upsertCallback;
   });
 
-  it('Board should contain expected properties', () => {
+  it('board should contain expected properties', () => {
     const board = new BoardModel(stubBoardData);
     expect(board.id).toBe('1');
     expect(board.name).toBe('testBoard');

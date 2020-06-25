@@ -31,7 +31,7 @@ describe('ticket.model.ts', () => {
     connection.upsert = upsertCallback;
   });
 
-  it('Ticket should contain expected properties', () => {
+  it('ticket should contain expected properties', () => {
     const ticket = new TicketModel(stubTicketData);
     expect(ticket.id).toBe('1');
     expect(ticket.user).toBe('2');
