@@ -1,7 +1,7 @@
 import { logger } from '../../utils/logger';
 import { TicketController } from '../../controllers/ticket.controller';
 import { TicketId, TicketInput } from '../../typescript';
-import { ServiceError } from '../../utils/errors';
+import { ServiceError } from '../../errors';
 
 class TicketServiceError extends ServiceError {
 }

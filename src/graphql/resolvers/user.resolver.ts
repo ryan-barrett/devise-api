@@ -1,7 +1,7 @@
 import { logger } from '../../utils/logger';
 import { UserController } from '../../controllers/user.controller';
 import { UserId, UserInput } from '../../typescript';
-import { ServiceError } from '../../utils/errors';
+import { ServiceError } from '../../errors';
 
 class UserServiceError extends ServiceError {
 }

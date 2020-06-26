@@ -1,6 +1,6 @@
 import { buildSchema } from 'graphql';
 import { root } from './root';
-import { customFormatErrorFn } from '../utils/errors';
+import { customFormatErrorFn } from '../errors';
 
 export default () => {
   const schema = buildSchema(`

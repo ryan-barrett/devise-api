@@ -1,6 +1,6 @@
 import { logger } from '../../utils/logger';
 import { BoardController } from '../../controllers/board.controller';
-import { ServiceError } from '../../utils/errors';
+import { ServiceError } from '../../errors';
 import { BoardId, BoardInput } from '../../typescript';
 
 class BoardServiceError extends ServiceError {

@@ -45,12 +45,6 @@ export class ServiceError extends BaseError {
   }
 }
 
-
-export function customFormatErrorFn<T extends BaseError>(error: any) {
-  const err = {
-    ...error.originalError.serialize(),
-    locations: error.locations,
-    path: error.path,
-  };
+export function customFormatErrorFn(error: any) {
   return error.originalError.serialize();
 }
