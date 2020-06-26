@@ -40,30 +40,30 @@ describe('ticket.model.ts', () => {
     expect(ticket.estimate).toBe(1);
   });
 
-  it('should return a ticket from static find method', async () => {
-    const ticket = await TicketModel.find('1');
+  it('should return a ticket from static Find method', async () => {
+    const ticket = await TicketModel.Find('1');
     expect(ticket.user).toBe('2');
   });
 
-  it('should return updated ticket from static put method', async () => {
-    const response = await TicketModel.find('1');
+  it('should return updated ticket from static Put method', async () => {
+    const response = await TicketModel.Find('1');
     const ticket = new TicketModel(response);
     ticket.board = '123';
-    await TicketModel.put(ticket);
-    const secondResponse = await TicketModel.find('1');
+    await TicketModel.Put(ticket);
+    const secondResponse = await TicketModel.Find('1');
     const updatedTicket = new TicketModel(secondResponse);
     expect(updatedTicket.getId()).toBe('1');
   });
 
-  it('should call connection.get on find request', async () => {
-    await TicketModel.find('1');
+  it('should call connection.get on Find request', async () => {
+    await TicketModel.Find('1');
     expect(getCallback.mock.calls.length).toBe(1);
   });
 
-  it('should call connection.upsert on put request', async () => {
-    const data = await TicketModel.find('1');
+  it('should call connection.upsert on Put request', async () => {
+    const data = await TicketModel.Find('1');
     const ticket = new TicketModel(data);
-    await TicketModel.put(ticket);
+    await TicketModel.Put(ticket);
     expect(upsertCallback.mock.calls.length).toBe(1);
   });
 

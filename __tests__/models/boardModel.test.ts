@@ -33,30 +33,30 @@ describe('board.model.ts', () => {
     expect(board.name).toBe('testBoard');
   });
 
-  it('should return a board from static find method', async () => {
-    const board = await BoardModel.find('1');
+  it('should return a board from static Find method', async () => {
+    const board = await BoardModel.Find('1');
     expect(board.id).toBe('1');
   });
 
-  it('should return updated board from static put method', async () => {
-    const response = await BoardModel.find('1');
+  it('should return updated board from static Put method', async () => {
+    const response = await BoardModel.Find('1');
     const board = new BoardModel(response);
     board.name = 'testBoard1';
-    await BoardModel.put(board);
-    const secondResponse = await BoardModel.find('1');
+    await BoardModel.Put(board);
+    const secondResponse = await BoardModel.Find('1');
     const updatedBoard = new BoardModel(secondResponse);
     expect(updatedBoard.getId()).toBe('1');
   });
 
-  it('should call connection.get on find request', async () => {
-    await BoardModel.find('1');
+  it('should call connection.get on Find request', async () => {
+    await BoardModel.Find('1');
     expect(getCallback.mock.calls.length).toBe(1);
   });
 
-  it('should call connection.upsert on put request', async () => {
-    const data = await BoardModel.find('1');
+  it('should call connection.upsert on Put request', async () => {
+    const data = await BoardModel.Find('1');
     const board = new BoardModel(data);
-    await BoardModel.put(board);
+    await BoardModel.Put(board);
     expect(upsertCallback.mock.calls.length).toBe(1);
   });
 

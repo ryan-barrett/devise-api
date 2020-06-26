@@ -35,30 +35,30 @@ describe('user.model.ts', () => {
     expect(user.boards[0]).toBe('123');
   });
 
-  it('should return a user from static find method', async () => {
-    const user = await UserModel.find('1');
+  it('should return a user from static Find method', async () => {
+    const user = await UserModel.Find('1');
     expect(user.userName).toBe('ryan');
   });
 
-  it('should return updated user from static put method', async () => {
-    const response = await UserModel.find('1');
+  it('should return updated user from static Put method', async () => {
+    const response = await UserModel.Find('1');
     const user = new UserModel(response);
     user.userName = 'steve';
-    await UserModel.put(user);
-    const secondResponse = await UserModel.find('1');
+    await UserModel.Put(user);
+    const secondResponse = await UserModel.Find('1');
     const updatedUser = new UserModel(secondResponse);
     expect(updatedUser.getId()).toBe('1');
   });
 
-  it('should call connection.get on find request', async () => {
-    await UserModel.find('1');
+  it('should call connection.get on Find request', async () => {
+    await UserModel.Find('1');
     expect(getCallback.mock.calls.length).toBe(1);
   });
 
-  it('should call connection.upsert on put request', async () => {
-    const data = await UserModel.find('1');
+  it('should call connection.upsert on Put request', async () => {
+    const data = await UserModel.Find('1');
     const user = new UserModel(data);
-    await UserModel.put(user);
+    await UserModel.Put(user);
     expect(upsertCallback.mock.calls.length).toBe(1);
   });
 
