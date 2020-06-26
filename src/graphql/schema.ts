@@ -1,5 +1,6 @@
 import { buildSchema } from 'graphql';
 import { root } from './root';
+import { customFormatErrorFn } from '../utils/errors';
 
 export default () => {
   const schema = buildSchema(`
@@ -70,5 +71,6 @@ type Mutation {
     schema: schema,
     rootValue: root,
     graphiql: true,
+    customFormatErrorFn,
   };
 };

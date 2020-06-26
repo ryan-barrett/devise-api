@@ -1,7 +1,10 @@
 import { logger } from '../../utils/logger';
 import { UserController } from '../../controllers/user.controller';
-import { RequestError, ServerError } from '../../utils/error.handling';
 import { UserId, UserInput } from '../../typescript';
+import { ServiceError } from '../../utils/errors';
+
+class UserServiceError extends ServiceError {
+}
 
 export async function getUser(args: UserId) {
   // @ts-ignore
@@ -11,10 +14,11 @@ export async function getUser(args: UserId) {
 
   try {
     return await UserController.Get(input);
-  } catch (error) {
+  }
+  catch (error) {
     const { message } = error;
     logger.error({ event: 'get user error', error });
-    return new ServerError(message, 500);
+    throw new UserServiceError(500, message, error);
   }
 }
 
@@ -27,10 +31,11 @@ export async function createUser(args: UserInput) {
 
   try {
     return await UserController.Create(input);
-  } catch (error) {
+  }
+  catch (error) {
     const { message } = error;
     logger.error({ event: 'create user error', error });
-    return new ServerError(message, 500);
+    throw new UserServiceError(500, message, error);
   }
 }
 
@@ -43,14 +48,15 @@ export async function updateUser(args: UserInput) {
 
   if (id === undefined) {
     logger.error({ event: 'no id specified for update user action' });
-    return new RequestError('no id specified for update user action', 400);
+    throw new UserServiceError(400, 'no id specified for update user action');
   }
 
   try {
     return await UserController.Update(input);
-  } catch (error) {
+  }
+  catch (error) {
     const { message } = error;
     logger.error({ event: 'update user error', error });
-    return new ServerError(message, 500);
+    throw new UserServiceError(500, message, error);
   }
 }

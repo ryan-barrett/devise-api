@@ -1,7 +1,10 @@
 import { logger } from '../../utils/logger';
 import { BoardController } from '../../controllers/board.controller';
-import { RequestError, ServerError } from '../../utils/error.handling';
+import { ServiceError } from '../../utils/errors';
 import { BoardId, BoardInput } from '../../typescript';
+
+class BoardServiceError extends ServiceError {
+}
 
 export async function getBoard(args: BoardId) {
   // @ts-ignore
@@ -11,10 +14,11 @@ export async function getBoard(args: BoardId) {
 
   try {
     return await BoardController.Get(input);
-  } catch (error) {
+  }
+  catch (error) {
     const { message } = error;
     logger.error({ event: 'error getting board', error });
-    return new ServerError(message, 500);
+    throw new BoardServiceError(500, message, error);
   }
 }
 
@@ -26,16 +30,17 @@ export async function createBoard(args: BoardInput) {
   logger.info({ event: 'received createBoard request', name });
 
   if (name === undefined) {
-    logger.error({ event: 'no board name specified for create board action' });
-    return new RequestError('no name specified for creating new board', 400);
+    logger.error('no name specified for creating new board')
+    throw new BoardServiceError(400, 'no name specified for creating new board');
   }
 
   try {
     return await BoardController.Create(input);
-  } catch (error) {
+  }
+  catch (error) {
     const { message } = error;
     logger.error({ event: 'error creating board', error });
-    return new ServerError(message, 500);
+    throw new BoardServiceError(500, message, error);
   }
 }
 
@@ -48,14 +53,15 @@ export async function updateBoard(args: BoardInput) {
 
   if (id === undefined) {
     logger.error({ event: 'no id specified for update board action' });
-    return new RequestError('no id specified for update board action', 400);
+    throw new BoardServiceError(400, 'no id specified for update board action');
   }
 
   try {
     return await BoardController.Update(input);
-  } catch (error) {
+  }
+  catch (error) {
     const { message } = error;
     logger.error({ event: 'error updating board', error });
-    return new ServerError(message, 500);
+    throw new BoardServiceError(500, message);
   }
 }
