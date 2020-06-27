@@ -1,5 +1,9 @@
 import { connection } from '../data.source/cb.connection';
 import { BoardId, UserId, UserData } from '../typescript';
+import { ModelError } from '../errors';
+
+class UserModelError extends ModelError {
+}
 
 export class UserModel {
   id: UserId;
@@ -23,7 +27,7 @@ export class UserModel {
     const response = await connection.get(userId);
     const { value } = response;
 
-    if (!value) throw new Error('missing value from response');
+    if (!value) throw new UserModelError(500, 'missing value from response');
     return value;
   }
 

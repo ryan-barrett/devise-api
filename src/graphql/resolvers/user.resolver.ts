@@ -27,7 +27,7 @@ export async function createUser(args: UserInput) {
   const { input } = args;
   const { userName, email } = input;
 
-  logger.info({ event: 'received createUser request', userName, email });
+  logger.info({ userName, email }, 'received createUser request');
 
   try {
     return await UserController.Create(input);
@@ -44,10 +44,10 @@ export async function updateUser(args: UserInput) {
   const { input } = args;
   const { id, userName, email, boards } = input;
 
-  logger.info({ event: 'received updateUser request', id, userName, email, boards });
+  logger.info({ id, userName, email, boards }, 'received updateUser request');
 
   if (id === undefined) {
-    logger.error({ event: 'no id specified for update user action' });
+    logger.error({ event: 'error' }, 'no id specified for update user action');
     throw new UserServiceError(400, 'no id specified for update user action');
   }
 
@@ -56,7 +56,7 @@ export async function updateUser(args: UserInput) {
   }
   catch (error) {
     const { message } = error;
-    logger.error({ event: 'update user error', error });
+    logger.error({ error }, 'update user error');
     throw new UserServiceError(500, message, error);
   }
 }

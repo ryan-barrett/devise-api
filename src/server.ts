@@ -2,7 +2,7 @@ import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import { logger } from './utils/logger';
 
-import { graphqlConfig } from './typescript/interfaces/graphql';
+import { graphqlConfig } from './typescript/interfaces';
 
 export class Server {
   private listener: any;
@@ -27,10 +27,11 @@ export class Server {
     return new Promise((resolve, reject) => {
       try {
         this.listener = this.app.listen(this.port, () => {
-          logger.info({ event: 'server started' }, `running on port ${this.port}`);
+          logger.info({ event: 'START' }, ` server started - running on port ${this.port}`);
         });
         resolve();
-      } catch (error) {
+      }
+      catch (error) {
         reject(error);
       }
     });

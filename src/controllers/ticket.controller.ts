@@ -2,7 +2,11 @@ import { logger } from '../utils/logger';
 import { generateId } from '../utils/generate.id';
 import { TicketModel } from '../models/ticket.model';
 import { validateUser } from '../utils/controller.utils';
+import { ControllerError } from '../errors';
 import { TicketId, TicketData } from '../typescript';
+
+class TicketControllerError extends ControllerError {
+}
 
 export class TicketController {
   public static async Get(ticketId: TicketId) {
@@ -21,7 +25,7 @@ export class TicketController {
   public static async Create(newTicketData: TicketData): Promise<any> {
     const { user } = newTicketData;
     if (user && !await validateUser(user)) {
-      throw new Error('cannot create ticket with invalid user');
+      throw new TicketControllerError(400, 'cannot create ticket with invalid user');
     }
 
     newTicketData.id = `ticket-${await generateId()}`;
@@ -31,7 +35,7 @@ export class TicketController {
     const newTicket = new TicketModel(newTicketData);
     const response = await TicketModel.Put(newTicket);
 
-    logger.info({ event: 'new ticket created', newTicket, response });
+    logger.info({ newTicket, response }, 'new ticket created');
     return await TicketController.Get(newTicketData.id);
   }
 
@@ -49,7 +53,7 @@ export class TicketController {
     const updatedTicket = new TicketModel(existingTicket);
     const response = await TicketModel.Put(updatedTicket);
 
-    logger.info({ event: 'ticket updated', id, response });
+    logger.info({ id, response }, 'ticket updated');
     return await TicketController.Get(id);
   }
 }

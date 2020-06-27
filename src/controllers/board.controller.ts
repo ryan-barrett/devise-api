@@ -16,7 +16,7 @@ export class BoardController {
     const newUser = new BoardModel(newBoardData);
     const response = await BoardModel.Put(newUser);
 
-    logger.info({ event: 'new board created', response });
+    logger.info({ response }, 'new board created');
     return await BoardController.Get(newBoardData.id);
   }
 
@@ -30,7 +30,7 @@ export class BoardController {
     const updatedBoard = new BoardModel(existingBoard);
     const response = await BoardModel.Put(updatedBoard);
 
-    logger.info({ event: 'board updated', id, response });
+    logger.info({ id, response }, 'board updated');
     return await BoardController.Get(id);
   }
 }

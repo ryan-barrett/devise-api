@@ -1,5 +1,9 @@
 import { connection } from '../data.source/cb.connection';
 import { BoardId, TicketId, UserId, TicketData } from '../typescript';
+import { ModelError } from '../errors';
+
+class TicketModelError extends ModelError {
+}
 
 export class TicketModel {
   id: TicketId;
@@ -31,7 +35,7 @@ export class TicketModel {
     const response = await connection.get(ticketId);
     const { value } = response;
 
-    if (!value) throw new Error('missing value from response');
+    if (!value) throw new TicketModelError(500, 'missing value from response');
     return value;
   }
 

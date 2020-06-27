@@ -1,3 +1,6 @@
 import bunyan from 'bunyan';
+import bunyanFormat from 'bunyan-format';
 
-export const logger: bunyan = bunyan.createLogger({ name: 'Devise' });
+const formatOut = bunyanFormat({ outputMode: 'short' });
+
+export const logger: bunyan = bunyan.createLogger({ name: 'Devise', stream: formatOut, level: 'info' });

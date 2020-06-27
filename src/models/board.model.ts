@@ -1,5 +1,9 @@
 import { connection } from '../data.source/cb.connection';
 import { BoardData, BoardId } from '../typescript';
+import { ModelError } from '../errors';
+
+class BoardModelError extends ModelError {
+}
 
 export class BoardModel {
   id: string;
@@ -23,7 +27,7 @@ export class BoardModel {
     const response = await connection.get(boardId);
     const { value } = response;
 
-    if (!value) throw new Error('missing value from response');
+    if (!value) throw new BoardModelError(500, 'missing value from response');
     return value;
   }
 

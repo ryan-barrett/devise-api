@@ -10,14 +10,14 @@ export async function getBoard(args: BoardId) {
   // @ts-ignore
   const { input } = args;
 
-  logger.info({ event: 'received getBoard request', input });
+  logger.info({ input }, 'received getBoard request');
 
   try {
     return await BoardController.Get(input);
   }
   catch (error) {
     const { message } = error;
-    logger.error({ event: 'error getting board', error });
+    logger.error({ error }, 'error getting board');
     throw new BoardServiceError(500, message, error);
   }
 }
@@ -27,10 +27,10 @@ export async function createBoard(args: BoardInput) {
   const { input } = args;
   const { name } = input;
 
-  logger.info({ event: 'received createBoard request', name });
+  logger.info({ name }, 'received createBoard request');
 
   if (name === undefined) {
-    logger.error('no name specified for creating new board')
+    logger.error('no name specified for creating new board');
     throw new BoardServiceError(400, 'no name specified for creating new board');
   }
 
@@ -39,7 +39,7 @@ export async function createBoard(args: BoardInput) {
   }
   catch (error) {
     const { message } = error;
-    logger.error({ event: 'error creating board', error });
+    logger.error({ error }, 'error creating board');
     throw new BoardServiceError(500, message, error);
   }
 }
@@ -49,10 +49,10 @@ export async function updateBoard(args: BoardInput) {
   const { input } = args;
   const { name, id } = input;
 
-  logger.info({ event: 'received updateBoard request', name, id });
+  logger.info({ name, id }, 'received updateBoard request');
 
   if (id === undefined) {
-    logger.error({ event: 'no id specified for update board action' });
+    logger.error({ event: 'error' }, 'no id specified for update board action');
     throw new BoardServiceError(400, 'no id specified for update board action');
   }
 
@@ -61,7 +61,7 @@ export async function updateBoard(args: BoardInput) {
   }
   catch (error) {
     const { message } = error;
-    logger.error({ event: 'error updating board', error });
+    logger.error({ error }, 'error updating board');
     throw new BoardServiceError(500, message);
   }
 }

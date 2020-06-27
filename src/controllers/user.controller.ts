@@ -2,7 +2,11 @@ import { logger } from '../utils/logger';
 import { generateId } from '../utils/generate.id';
 import { UserModel } from '../models/user.model';
 import { validateBoards } from '../utils/controller.utils';
+import { ControllerError } from '../errors';
 import type { UserId, UserData } from '../typescript';
+
+class UserControllerError extends ControllerError {
+}
 
 export class UserController {
   public static async Get(userId: UserId) {
@@ -16,7 +20,7 @@ export class UserController {
     const newUser = new UserModel(newUserData);
     const response = await UserModel.Put(newUser);
 
-    logger.info({ event: 'new user created', response });
+    logger.info({ response }, 'new user created',);
     return await UserController.Get(newUserData.id);
   }
 
@@ -24,7 +28,7 @@ export class UserController {
     const { id, userName, email, boards } = userData;
 
     if (boards !== undefined && !await validateBoards(boards)) {
-      throw new Error('cannot update user with invalid boards');
+      throw new UserControllerError(400, 'cannot update user with invalid boards');
     }
 
     const existingUser = await UserModel.Find(id);
@@ -37,7 +41,7 @@ export class UserController {
     const updatedUser = new UserModel(existingUser);
     const response = await UserModel.Put(updatedUser);
 
-    logger.info({ event: 'user updated', id, response });
+    logger.info({ id, response }, 'user updated');
     return await UserController.Get(id);
   }
 }
