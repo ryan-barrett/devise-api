@@ -4,15 +4,16 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "dev": "ts-node-dev src/index.ts",
-    "test": "jest --verbose"
+    "start": "node_modules/.bin/ts-node src/index.ts",
+    "dev": "node_modules/.bin/ts-node-dev src/index.ts",
+    "test": "node_modules/.bin/jest --verbose"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bunyan": "^1.8.12",
     "bunyan-format": "^0.2.1",
+    "config": "^3.3.1",
     "couchbase": "^3.0.2",
     "express": "^4.17.1",
     "express-graphql": "^0.9.0",
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@types/bunyan": "^1.8.6",
     "@types/bunyan-format": "^0.2.3",
+    "@types/config": "0.0.36",
     "@types/couchbase": "^2.4.2",
     "@types/express": "^4.17.6",
     "@types/jest": "^26.0.0",

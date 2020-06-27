@@ -10,7 +10,7 @@ export async function getUser(args: UserId) {
   // @ts-ignore
   const { input } = args;
 
-  logger.info({ event: 'received getUser request', input });
+  logger.info({ input }, 'received getUser request');
 
   try {
     return await UserController.Get(input);

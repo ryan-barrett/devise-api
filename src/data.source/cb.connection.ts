@@ -1,5 +1,9 @@
+import config from 'config';
 import { Cluster } from 'couchbase';
 import type { CbConnectionUrl, Id, CouchbaseConnectionOptions, QueryResult } from '../typescript';
+
+const couchbaseConfig: any = config.get('couchbaseConfig');
+const { couchbaseUrl, cbUsername, cbPassword, defaultBucket } = couchbaseConfig;
 
 class CouchbaseConnection {
   private connection: any;
@@ -26,13 +30,9 @@ class CouchbaseConnection {
   }
 
   async count(): Promise<QueryResult> {
-    return await this.connection.query(`SELECT COUNT(*) FROM b`); // TODO: parameterize bucket
+    return await this.connection.query(`SELECT COUNT(*) FROM ${defaultBucket}`);
   }
 }
-
-const couchbaseUrl = process.env.COUCHBASE_URL || '8091';
-const cbUsername = process.env.CB_USERNAME || '';
-const cbPassword = process.env.CB_PASSWORD || '';
 
 export const connection = new CouchbaseConnection(couchbaseUrl, {
   username: cbUsername,
