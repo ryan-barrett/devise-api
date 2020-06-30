@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node_modules/.bin/ts-node src/index.ts",
     "dev": "node_modules/.bin/ts-node-dev src/index.ts",
-    "test": "node_modules/.bin/jest --verbose"
+    "test": "node_modules/.bin/jest --verbose --coverage"
   },
   "author": "",
   "license": "ISC",
