@@ -8,6 +8,7 @@ export interface UserInput {
   id?: string;
   userName: string;
   email: string;
+  boards: Array<BoardId>;
 }
 
 export interface BoardInput {
