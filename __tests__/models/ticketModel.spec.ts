@@ -7,6 +7,7 @@ describe('ticket.model.ts', () => {
   const stubTicketData = {
     id: '1',
     user: '2',
+    status: 'in progress',
     board: '123',
     title: 'test ticket',
     estimate: 1,
