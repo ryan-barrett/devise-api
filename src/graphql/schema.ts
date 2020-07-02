@@ -33,6 +33,7 @@ input boardInput {
 type Ticket {
   id: String!
   user: String
+  status: String
   board: String
   title: String
   estimate: Int
@@ -44,6 +45,7 @@ type Ticket {
 input ticketInput {
   id: String
   user: String
+  status: String
   board: String
   title: String
   estimate: Int

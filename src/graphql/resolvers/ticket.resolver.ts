@@ -2,6 +2,7 @@ import { logger } from '../../utils/logger';
 import { TicketController } from '../../controllers/ticket.controller';
 import { TicketId, TicketInput } from '../../typescript';
 import { ServiceError } from '../../errors';
+import { validateTicketStatus } from '../../utils/resolver.utils';
 
 class TicketServiceError extends ServiceError {
 }
@@ -41,12 +42,17 @@ export async function getTickets(args: Array<TicketId>) {
 export async function createTicket(args: TicketInput) {
   // @ts-ignore
   const { input } = args;
-  const { title, user, board, estimate, description } = input;
+  const { title, user, board, estimate, description, status } = input;
   logger.info({ title }, 'received createTicket request');
 
   if (title === undefined) {
     logger.error({ event: 'error' }, 'no board name specified for create ticket action');
     throw new TicketServiceError(400, 'no board name specified for create ticket action');
+  }
+
+  if (!validateTicketStatus(status)) {
+    logger.error({ event: 'error' }, 'invalid status for create ticket action');
+    throw new TicketServiceError(400, 'invalid status for create ticket action');
   }
 
   try {
@@ -69,6 +75,12 @@ export async function updateTicket(args: TicketInput) {
     logger.error({ event: 'error' }, 'no id specified for update ticket action');
     throw new TicketServiceError(400, 'no id specified for update ticket action');
   }
+
+  if (!validateTicketStatus(status)) {
+    logger.error({ event: 'error' }, 'invalid status for update ticket action');
+    throw new TicketServiceError(400, 'invalid status for update ticket action');
+  }
+
   try {
     return await TicketController.Update(input);
   }

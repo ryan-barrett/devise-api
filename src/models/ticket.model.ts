@@ -8,6 +8,7 @@ class TicketModelError extends ModelError {
 export class TicketModel {
   id: TicketId;
   user: UserId;
+  status: string;
   board: BoardId;
   title: string;
   estimate: number;
@@ -16,9 +17,10 @@ export class TicketModel {
   lastUpdated: Date;
 
   constructor(data: TicketData) {
-    const { id, user, board, title, estimate, description, dateCreated, lastUpdated } = data;
+    const { id, user, status, board, title, estimate, description, dateCreated, lastUpdated } = data;
     this.id = id;
     this.user = user;
+    this.status = status;
     this.board = board;
     this.title = title;
     this.estimate = estimate;

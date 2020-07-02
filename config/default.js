@@ -5,5 +5,6 @@ module.exports = {
     'defaultBucket': process.env.DEFAULT_BUCKET || 'b',
     cbUsername: process.env.CB_USERNAME || '',
     cbPassword: process.env.CB_PASSWORD || '',
-  }
+  },
+  ticketStatusList: process.env.TICKET_STATUS_LIST || ['todo', 'in progress', 'done'],
 }
