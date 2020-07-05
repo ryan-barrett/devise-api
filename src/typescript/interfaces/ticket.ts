@@ -1,7 +1,7 @@
 import type { BoardId, TicketId, UserId } from '../types';
 
 export interface TicketData {
-  id: TicketId; // not included during update
+  id: TicketId;
   user: UserId;
   status: string,
   board: BoardId;
