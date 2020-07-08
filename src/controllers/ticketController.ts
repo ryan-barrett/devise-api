@@ -3,17 +3,17 @@ import { generateId } from '../utils/generateId';
 import { TicketModel } from '../models';
 import { validateUser } from '../utils/controllerUtils';
 import { ControllerError } from '../errors';
-import { TicketId, TicketData } from '../typescript';
+import { TicketId, TicketData, Ticket } from '../typescript';
 
 class TicketControllerError extends ControllerError {
 }
 
 export class TicketController {
-  public static async Get(ticketId: TicketId) {
+  public static async Get(ticketId: TicketId): Promise<Ticket> {
     return await TicketModel.Find(ticketId);
   }
 
-  public static async GetMultiple(ticketIds: Array<TicketId>) {
+  public static async GetMultiple(ticketIds: Array<TicketId>): Promise<Array<Ticket>> {
     const results = [];
 
     for (let ticketId of ticketIds) {
@@ -22,7 +22,7 @@ export class TicketController {
     return results;
   }
 
-  public static async Create(newTicketData: TicketData): Promise<any> {
+  public static async Create(newTicketData: TicketData): Promise<Ticket> {
     const { user } = newTicketData;
     if (user && !await validateUser(user)) {
       throw new TicketControllerError(400, 'cannot create ticket with invalid user');
@@ -39,7 +39,7 @@ export class TicketController {
     return await TicketController.Get(newTicketData.id);
   }
 
-  public static async Update(ticketData: TicketData): Promise<any> {
+  public static async Update(ticketData: TicketData): Promise<Ticket> {
     const { id, user, board, title, estimate, description } = ticketData;
 
     const existingTicket = await TicketModel.Find(id);

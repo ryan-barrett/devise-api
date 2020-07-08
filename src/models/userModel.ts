@@ -1,5 +1,5 @@
 import { connection } from '../data-sources/couchbase';
-import { BoardId, UserId, UserData } from '../typescript';
+import { BoardId, UserId, UserData, User } from '../typescript';
 import { ModelError } from '../errors';
 
 class UserModelError extends ModelError {
@@ -23,7 +23,7 @@ export class UserModel {
     return this.id;
   }
 
-  static async Find(userId: UserId): Promise<UserModel> {
+  static async Find(userId: UserId): Promise<User> {
     const response = await connection.get(userId);
     const { value } = response;
 
@@ -31,7 +31,7 @@ export class UserModel {
     return value;
   }
 
-  static async Put(user: UserModel) {
+  static async Put(user: UserModel): Promise<any> {
     return await connection.upsert(user.getId(), user);
   }
 }

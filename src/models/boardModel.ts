@@ -1,12 +1,12 @@
 import { connection } from '../data-sources/couchbase';
-import { BoardData, BoardId } from '../typescript';
+import { BoardData, BoardId, Board } from '../typescript';
 import { ModelError } from '../errors';
 
 class BoardModelError extends ModelError {
 }
 
 export class BoardModel {
-  id: string;
+  id: BoardId;
   name: string;
   dateCreated: Date;
   lastUpdated: Date;
@@ -23,7 +23,7 @@ export class BoardModel {
     return this.id;
   }
 
-  static async Find(boardId: BoardId): Promise<BoardModel> {
+  static async Find(boardId: BoardId): Promise<Board> {
     const response = await connection.get(boardId);
     const { value } = response;
 
@@ -31,7 +31,7 @@ export class BoardModel {
     return value;
   }
 
-  static async Put(board: BoardModel) {
+  static async Put(board: BoardModel): Promise<any> {
     return await connection.upsert(board.getId(), board);
   }
 }

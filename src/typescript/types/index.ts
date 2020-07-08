@@ -14,6 +14,32 @@ type Json =
   | { [property: string]: Json }
   | Json[];
 
+type Ticket = {
+  id: TicketId,
+  user: UserId,
+  status: string,
+  board: BoardId,
+  title: string,
+  estimate: number,
+  description: string,
+  dateCreated: Date,
+  lastUpdated: Date,
+};
+
+type User = {
+  id: UserId,
+  userName: string,
+  email: string,
+  boards: Array<BoardId>
+}
+
+type Board = {
+  id: BoardId,
+  name: string,
+  dateCreated: Date,
+  lastUpdated: Date,
+}
+
 export type {
   Id,
   BoardId,
@@ -21,4 +47,7 @@ export type {
   UserId,
   CbConnectionUrl,
   Json,
-}
+  Ticket,
+  User,
+  Board
+};

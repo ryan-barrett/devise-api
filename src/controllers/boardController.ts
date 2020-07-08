@@ -1,14 +1,14 @@
 import { logger } from '../utils/logger';
 import { generateId } from '../utils/generateId';
 import { BoardModel } from '../models';
-import { BoardId, BoardData } from '../typescript';
+import { BoardId, BoardData, Board } from '../typescript';
 
 export class BoardController {
-  public static async Get(boardId: BoardId) {
+  public static async Get(boardId: BoardId): Promise<Board> {
     return await BoardModel.Find(boardId);
   }
 
-  public static async Create(newBoardData: BoardData): Promise<any> {
+  public static async Create(newBoardData: BoardData): Promise<Board> {
     newBoardData.id = `board-${await generateId()}`;
     newBoardData.dateCreated = new Date();
     newBoardData.lastUpdated = new Date();
@@ -20,7 +20,7 @@ export class BoardController {
     return await BoardController.Get(newBoardData.id);
   }
 
-  public static async Update(boardData: BoardData): Promise<any> {
+  public static async Update(boardData: BoardData): Promise<Board> {
     const { id, name } = boardData;
 
     const existingBoard = await BoardModel.Find(id);

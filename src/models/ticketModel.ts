@@ -1,5 +1,5 @@
 import { connection } from '../data-sources/couchbase';
-import { BoardId, TicketId, UserId, TicketData } from '../typescript';
+import { BoardId, TicketId, UserId, TicketData, Ticket } from '../typescript';
 import { ModelError } from '../errors';
 
 class TicketModelError extends ModelError {
@@ -33,7 +33,7 @@ export class TicketModel {
     return this.id;
   }
 
-  static async Find(ticketId: TicketId): Promise<TicketModel> {
+  static async Find(ticketId: TicketId): Promise<Ticket> {
     const response = await connection.get(ticketId);
     const { value } = response;
 
@@ -41,7 +41,7 @@ export class TicketModel {
     return value;
   }
 
-  static async Put(ticket: TicketModel) {
+  static async Put(ticket: TicketModel): Promise<any> {
     return await connection.upsert(ticket.getId(), ticket);
   }
 }

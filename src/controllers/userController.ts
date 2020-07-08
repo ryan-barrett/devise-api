@@ -3,17 +3,17 @@ import { generateId } from '../utils/generateId';
 import { UserModel } from '../models';
 import { validateBoards } from '../utils/controllerUtils';
 import { ControllerError } from '../errors';
-import type { UserId, UserData } from '../typescript';
+import type { UserId, UserData, User } from '../typescript';
 
 class UserControllerError extends ControllerError {
 }
 
 export class UserController {
-  public static async Get(userId: UserId) {
+  public static async Get(userId: UserId): Promise<User> {
     return await UserModel.Find(userId);
   }
 
-  public static async Create(newUserData: UserData): Promise<any> {
+  public static async Create(newUserData: UserData): Promise<User> {
     newUserData.id = `user-${await generateId()}`;
     newUserData.boards = [];
 
@@ -24,7 +24,7 @@ export class UserController {
     return await UserController.Get(newUserData.id);
   }
 
-  public static async Update(userData: UserData): Promise<any> {
+  public static async Update(userData: UserData): Promise<User> {
     const { id, userName, email, boards } = userData;
 
     if (boards !== undefined && !await validateBoards(boards)) {
