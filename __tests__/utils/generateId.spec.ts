@@ -1,5 +1,5 @@
-import { generateId } from '../../src/utils/generate.id';
-import { connection } from '../../src/data.source/cb.connection';
+import { generateId } from '../../src/utils/generateId';
+import { connection } from '../../src/data-sources/couchbase';
 
 const count = jest.fn(() => {
   return new Promise((resolve, reject) => {

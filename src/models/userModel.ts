@@ -1,4 +1,4 @@
-import { connection } from '../data.source/cb.connection';
+import { connection } from '../data-sources/couchbase';
 import { BoardId, UserId, UserData } from '../typescript';
 import { ModelError } from '../errors';
 

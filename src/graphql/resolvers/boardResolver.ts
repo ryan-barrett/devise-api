@@ -1,5 +1,5 @@
 import { logger } from '../../utils/logger';
-import { BoardController } from '../../controllers/board.controller';
+import { BoardController } from '../../controllers';
 import { ServiceError } from '../../errors';
 import { BoardId, BoardInput } from '../../typescript';
 

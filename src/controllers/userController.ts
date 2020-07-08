@@ -1,7 +1,7 @@
 import { logger } from '../utils/logger';
-import { generateId } from '../utils/generate.id';
-import { UserModel } from '../models/user.model';
-import { validateBoards } from '../utils/controller.utils';
+import { generateId } from '../utils/generateId';
+import { UserModel } from '../models';
+import { validateBoards } from '../utils/controllerUtils';
 import { ControllerError } from '../errors';
 import type { UserId, UserData } from '../typescript';
 

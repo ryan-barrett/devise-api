@@ -1,5 +1,5 @@
 import { logger } from '../../utils/logger';
-import { UserController } from '../../controllers/user.controller';
+import { UserController } from '../../controllers';
 import { UserId, UserInput } from '../../typescript';
 import { ServiceError } from '../../errors';
 

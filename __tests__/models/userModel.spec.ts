@@ -1,9 +1,9 @@
-import { UserModel } from '../../src/models/user.model';
-import { connection } from '../../src/data.source/cb.connection';
+import { UserModel } from '../../src/models/userModel';
+import { connection } from '../../src/data-sources/couchbase';
 
 import Mock = jest.Mock;
 
-describe('user.model.ts', () => {
+describe('userModel.ts', () => {
   const stubUserData = {
     id: '1',
     userName: 'ryan',

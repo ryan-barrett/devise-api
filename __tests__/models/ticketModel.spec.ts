@@ -1,9 +1,9 @@
-import { TicketModel } from '../../src/models/ticket.model';
-import { connection } from '../../src/data.source/cb.connection';
+import { TicketModel } from '../../src/models/ticketModel';
+import { connection } from '../../src/data-sources/couchbase';
 
 import Mock = jest.Mock;
 
-describe('ticket.model.ts', () => {
+describe('ticketModel.ts', () => {
   const stubTicketData = {
     id: '1',
     user: '2',

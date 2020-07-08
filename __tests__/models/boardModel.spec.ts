@@ -1,9 +1,9 @@
-import { BoardModel } from '../../src/models/board.model';
-import { connection } from '../../src/data.source/cb.connection';
+import { BoardModel } from '../../src/models/boardModel';
+import { connection } from '../../src/data-sources/couchbase';
 
 import Mock = jest.Mock;
 
-describe('board.model.ts', () => {
+describe('boardModel.ts', () => {
   const stubBoardData = {
     id: '1',
     name: 'testBoard',

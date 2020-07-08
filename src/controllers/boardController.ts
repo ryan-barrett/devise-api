@@ -1,6 +1,6 @@
 import { logger } from '../utils/logger';
-import { generateId } from '../utils/generate.id';
-import { BoardModel } from '../models/board.model';
+import { generateId } from '../utils/generateId';
+import { BoardModel } from '../models';
 import { BoardId, BoardData } from '../typescript';
 
 export class BoardController {

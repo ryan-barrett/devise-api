@@ -1,28 +1,21 @@
-import { TicketController } from '../../src/controllers/ticket.controller';
-import { TicketModel } from '../../src/models/ticket.model';
-import { UserModel } from '../../src/models/user.model';
-import { connection } from '../../src/data.source/cb.connection';
+import { BoardController } from '../../src/controllers/boardController';
+import { BoardModel } from '../../src/models/boardModel';
+import { connection } from '../../src/data-sources/couchbase';
 import { logger } from '../../src/utils/logger';
 
-const ticketData = {
+const boardData = {
   id: '123',
-  user: '456',
-  status: 'todo',
-  board: '789',
-  title: 'some ticket',
-  estimate: 1,
-  description: 'a ticket',
+  name: 'ryan',
   dateCreated: new Date(),
   lastUpdated: new Date(),
 };
 
-describe('ticket controller', () => {
+describe('board controller', () => {
   let mockGet: any;
   let mockFind: any;
   let mockPut: any;
   let mockCount: any;
   let mockLogger: any;
-  let mockUserFind: any;
 
   beforeEach(() => {
     mockPut = jest.fn();
@@ -35,69 +28,48 @@ describe('ticket controller', () => {
       });
     });
 
-    mockUserFind = jest.fn(() => {
-      return new Promise((resolve) => {
-        resolve({ id: '123' });
-      });
-    });
-
     mockCount = jest.fn(() => {
       return new Promise((resolve, reject) => {
         resolve({ rows: [[1]] });
       });
     });
 
-    TicketModel.Find = mockFind;
-    TicketModel.Put = mockPut;
-    TicketController.Get = mockGet;
-    UserModel.Find = mockUserFind;
+    // @ts-ignore
+    BoardModel.Find = mockFind;
+    BoardModel.Put = mockPut;
+    BoardController.Get = mockGet;
     connection.count = mockCount;
     logger.info = mockLogger;
   });
 
   describe('Get', () => {
-    it('should call Find TicketModel and return the result', async () => {
-      const ticket = await TicketModel.Find('123');
-      expect(ticket.id).toBe('123');
-    });
-  });
-
-  describe('GetMultiple', () => {
-    const ids = ['123', '456', '789'];
-
-    it('should call Get for each ticketId passed in', async () => {
-      await TicketController.GetMultiple(ids);
-      expect(mockGet.mock.calls.length).toBe(3);
-    });
-
-    it('should return an array of tickets', async () => {
-      const results = await TicketController.GetMultiple(ids);
-      expect(results.length).toBe(3);
+    it('should call Find on BoardModel and return result', async () => {
+      const board = await BoardModel.Find('123');
+      expect(board.id).toBe('123');
     });
   });
 
   describe('Create', () => {
-    it('should call Put on TicketModel class', async () => {
-      await TicketController.Create(ticketData);
+    it('should call Put on BoardModel class', async () => {
+      await BoardController.Create(boardData);
       const call = mockPut.mock.calls[0][0];
-      expect(call instanceof TicketModel).toBe(true);
+      expect(call instanceof BoardModel).toBe(true);
     });
 
-
     it('should have dateCreated and lastUpdated fields of type Date', async () => {
-      await TicketController.Create(ticketData);
+      await BoardController.Create(boardData);
       const call = mockPut.mock.calls[0][0];
       expect(call.dateCreated instanceof Date).toBe(true);
       expect(call.lastUpdated instanceof Date).toBe(true);
     });
 
     it('should log an outcome message', async () => {
-      await TicketController.Create(ticketData);
+      await BoardController.Create(boardData);
       expect(mockLogger.mock.calls.length).toBe(1);
     });
 
     it('should call get with the newly created ID', async () => {
-      await TicketController.Create(ticketData);
+      await BoardController.Create(boardData);
       const putCall = mockPut.mock.calls[0][0];
       const getCall = mockGet.mock.calls[0][0];
       expect(putCall.id).toEqual(getCall);
@@ -106,18 +78,25 @@ describe('ticket controller', () => {
 
   describe('Update', () => {
     it('should call find on existing board ID', async () => {
-      await TicketController.Update(ticketData);
+      await BoardController.Update(boardData);
       const findCall = mockFind.mock.calls[0][0];
-      expect(ticketData.id).toEqual(findCall);
+      expect(boardData.id).toEqual(findCall);
+    });
+
+    it('should apply new name and lastUpdated fields to existing board', async () => {
+      await BoardController.Update(boardData);
+      const putCall = mockPut.mock.calls[0][0];
+      expect(putCall.name).toBe(boardData.name);
+      expect(putCall.lastUpdated instanceof Date).toBe(true);
     });
 
     it('should log an outcome message', async () => {
-      await TicketController.Update(ticketData);
+      await BoardController.Update(boardData);
       expect(mockLogger.mock.calls.length).toBe(1);
     });
 
     it('should call get with the updated board ID', async () => {
-      await TicketController.Update(ticketData);
+      await BoardController.Update(boardData);
       const putCall = mockPut.mock.calls[0][0];
       const getCall = mockGet.mock.calls[0][0];
       expect(putCall.id).toEqual('123');

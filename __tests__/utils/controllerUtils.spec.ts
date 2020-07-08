@@ -1,6 +1,6 @@
-import { validateBoards, validateUser } from '../../src/utils/controller.utils';
-import { BoardModel } from '../../src/models/board.model';
-import { UserModel } from '../../src/models/user.model';
+import { validateBoards, validateUser } from '../../src/utils/controllerUtils';
+import { BoardModel } from '../../src/models/boardModel';
+import { UserModel } from '../../src/models/userModel';
 
 describe('controller utilities', () => {
   describe('validateBoards', () => {

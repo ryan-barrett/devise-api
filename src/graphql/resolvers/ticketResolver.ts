@@ -1,8 +1,8 @@
 import { logger } from '../../utils/logger';
-import { TicketController } from '../../controllers/ticket.controller';
+import { TicketController } from '../../controllers';
 import { TicketId, TicketInput } from '../../typescript';
 import { ServiceError } from '../../errors';
-import { validateTicketStatus } from '../../utils/resolver.utils';
+import { validateTicketStatus } from '../../utils/resolverUtils';
 
 class TicketServiceError extends ServiceError {
 }
