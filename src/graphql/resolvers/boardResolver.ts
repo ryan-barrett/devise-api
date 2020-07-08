@@ -17,7 +17,6 @@ export async function getBoard(args: BoardId) {
   }
   catch (error) {
     const { message } = error;
-    logger.error({ error }, 'error getting board');
     throw new BoardServiceError(500, message, error);
   }
 }
@@ -30,7 +29,6 @@ export async function createBoard(args: BoardInput) {
   logger.info({ name }, 'received createBoard request');
 
   if (name === undefined) {
-    logger.error('no name specified for creating new board');
     throw new BoardServiceError(400, 'no name specified for creating new board');
   }
 
@@ -39,7 +37,6 @@ export async function createBoard(args: BoardInput) {
   }
   catch (error) {
     const { message } = error;
-    logger.error({ error }, 'error creating board');
     throw new BoardServiceError(500, message, error);
   }
 }
@@ -52,7 +49,6 @@ export async function updateBoard(args: BoardInput) {
   logger.info({ name, id }, 'received updateBoard request');
 
   if (id === undefined) {
-    logger.error({ event: 'error' }, 'no id specified for update board action');
     throw new BoardServiceError(400, 'no id specified for update board action');
   }
 
@@ -61,7 +57,6 @@ export async function updateBoard(args: BoardInput) {
   }
   catch (error) {
     const { message } = error;
-    logger.error({ error }, 'error updating board');
     throw new BoardServiceError(500, message);
   }
 }

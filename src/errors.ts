@@ -1,4 +1,5 @@
 import { GraphQLError } from 'graphql';
+import { logger } from './utils/logger';
 
 export class BaseError extends GraphQLError {
   protected _code: number;
@@ -18,7 +19,12 @@ export class BaseError extends GraphQLError {
     return this._code;
   }
 
+  public logError() {
+    logger.error({ event: this }, this.message);
+  }
+
   public serialize() {
+    this.logError();
     return {
       type: this.type,
       code: this._code,
@@ -46,5 +52,10 @@ export class ServiceError extends BaseError {
 }
 
 export function customFormatErrorFn(error: any) {
-  return error.originalError.serialize();
+  try {
+    return error.originalError.serialize();
+  }
+  catch (e) {
+    return new ServiceError(500, 'server error', error).serialize();
+  }
 }

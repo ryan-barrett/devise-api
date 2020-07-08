@@ -18,7 +18,6 @@ export async function getTicket(args: TicketId) {
   }
   catch (error) {
     const { message } = error;
-    logger.error({ error }, 'error getting ticket');
     throw new TicketServiceError(500, message, error);
   }
 }
@@ -34,7 +33,6 @@ export async function getTickets(args: Array<TicketId>) {
   }
   catch (error) {
     const { message } = error;
-    logger.error({ error }, 'error getting multiple tickets');
     throw new TicketServiceError(500, message, error);
   }
 }
@@ -46,12 +44,10 @@ export async function createTicket(args: TicketInput) {
   logger.info({ title }, 'received createTicket request');
 
   if (title === undefined) {
-    logger.error({ event: 'error' }, 'no board name specified for create ticket action');
     throw new TicketServiceError(400, 'no board name specified for create ticket action');
   }
 
   if (!validateTicketStatus(status)) {
-    logger.error({ event: 'error' }, 'invalid status for create ticket action');
     throw new TicketServiceError(400, 'invalid status for create ticket action');
   }
 
@@ -68,16 +64,14 @@ export async function createTicket(args: TicketInput) {
 export async function updateTicket(args: TicketInput) {
   // @ts-ignore
   const { input } = args;
-  const { id, title, user, board, estimate, description } = input;
+  const { id, status } = input;
   logger.info({ id }, 'received updateTicket request');
 
   if (id === undefined) {
-    logger.error({ event: 'error' }, 'no id specified for update ticket action');
     throw new TicketServiceError(400, 'no id specified for update ticket action');
   }
 
   if (!validateTicketStatus(status)) {
-    logger.error({ event: 'error' }, 'invalid status for update ticket action');
     throw new TicketServiceError(400, 'invalid status for update ticket action');
   }
 
@@ -86,7 +80,6 @@ export async function updateTicket(args: TicketInput) {
   }
   catch (error) {
     const { message } = error;
-    logger.error({ error }, 'error updating ticket');
     throw new TicketServiceError(500, message, error);
   }
 }

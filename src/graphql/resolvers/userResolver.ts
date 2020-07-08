@@ -17,7 +17,6 @@ export async function getUser(args: UserId) {
   }
   catch (error) {
     const { message } = error;
-    logger.error({ event: 'get user error', error });
     throw new UserServiceError(500, message, error);
   }
 }
@@ -34,7 +33,6 @@ export async function createUser(args: UserInput) {
   }
   catch (error) {
     const { message } = error;
-    logger.error({ event: 'create user error', error });
     throw new UserServiceError(500, message, error);
   }
 }
@@ -47,7 +45,6 @@ export async function updateUser(args: UserInput) {
   logger.info({ id, userName, email, boards }, 'received updateUser request');
 
   if (id === undefined) {
-    logger.error({ event: 'error' }, 'no id specified for update user action');
     throw new UserServiceError(400, 'no id specified for update user action');
   }
 
@@ -56,7 +53,6 @@ export async function updateUser(args: UserInput) {
   }
   catch (error) {
     const { message } = error;
-    logger.error({ error }, 'update user error');
     throw new UserServiceError(500, message, error);
   }
 }
