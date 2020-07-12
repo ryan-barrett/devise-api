@@ -1,5 +1,5 @@
-import { BoardController } from '../../src/controllers/boardController';
-import { BoardModel } from '../../src/models/boardModel';
+import { BoardController } from '../../src/controllers/board';
+import { BoardModel } from '../../src/models/board';
 import { connection } from '../../src/data-sources/couchbase';
 import { logger } from '../../src/utils/logger';
 

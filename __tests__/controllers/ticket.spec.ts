@@ -1,6 +1,6 @@
-import { TicketController } from '../../src/controllers/ticketController';
-import { TicketModel } from '../../src/models/ticketModel';
-import { UserModel } from '../../src/models/userModel';
+import { TicketController } from '../../src/controllers/ticket';
+import { TicketModel } from '../../src/models/ticket';
+import { UserModel } from '../../src/models/user';
 import { connection } from '../../src/data-sources/couchbase';
 import { logger } from '../../src/utils/logger';
 

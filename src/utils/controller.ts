@@ -1,5 +1,5 @@
-import { BoardModel } from '../models/boardModel';
-import { UserModel } from '../models/userModel';
+import { BoardModel } from '../models/board';
+import { UserModel } from '../models/user';
 import { BoardId, UserId } from '../typescript';
 
 export const validateBoards = async (boards: Array<BoardId>): Promise<boolean> => {

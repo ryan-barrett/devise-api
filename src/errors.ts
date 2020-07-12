@@ -25,6 +25,7 @@ export class BaseError extends GraphQLError {
 
   public serialize() {
     this.logError();
+
     return {
       type: this.type,
       code: this._code,
@@ -51,7 +52,7 @@ export class ServiceError extends BaseError {
   }
 }
 
-export function customFormatErrorFn(error: any) {
+export function customFormatErrorFn(error: any) { // TODO: rename this?
   try {
     return error.originalError.serialize();
   }

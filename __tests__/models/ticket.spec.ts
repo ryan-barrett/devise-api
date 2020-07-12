@@ -1,4 +1,4 @@
-import { TicketModel } from '../../src/models/ticketModel';
+import { TicketModel } from '../../src/models/ticket';
 import { connection } from '../../src/data-sources/couchbase';
 
 import Mock = jest.Mock;

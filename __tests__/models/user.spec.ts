@@ -1,4 +1,4 @@
-import { UserModel } from '../../src/models/userModel';
+import { UserModel } from '../../src/models/user';
 import { connection } from '../../src/data-sources/couchbase';
 
 import Mock = jest.Mock;

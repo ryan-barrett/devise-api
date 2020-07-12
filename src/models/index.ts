@@ -1,3 +1,3 @@
-export * from './boardModel';
-export * from './ticketModel';
-export * from './userModel';
+export * from './board';
+export * from './ticket';
+export * from './user';

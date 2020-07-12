@@ -1,4 +1,4 @@
-import { BoardModel } from '../../src/models/boardModel';
+import { BoardModel } from '../../src/models/board';
 import { connection } from '../../src/data-sources/couchbase';
 
 import Mock = jest.Mock;
