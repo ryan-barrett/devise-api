@@ -1,6 +1,17 @@
 import { buildSchema } from 'graphql';
-import { root } from './root';
 import { customFormatErrorFn } from '../errors';
+import {
+  getUser,
+  createUser,
+  updateUser,
+  getBoard,
+  createBoard,
+  updateBoard,
+  getTicket,
+  getTickets,
+  createTicket,
+  updateTicket
+} from './resolvers';
 
 export default () => {
   const schema = buildSchema(`
@@ -71,7 +82,18 @@ type Mutation {
 
   return {
     schema: schema,
-    rootValue: root,
+    rootValue: {
+      getUser,
+      createUser,
+      updateUser,
+      getBoard,
+      createBoard,
+      updateBoard,
+      getTicket,
+      getTickets,
+      createTicket,
+      updateTicket
+    },
     graphiql: true,
     customFormatErrorFn,
   };

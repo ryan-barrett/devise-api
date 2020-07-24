@@ -1,5 +1,5 @@
 import { connection } from '../data-sources/couchbase';
-import { BoardData, BoardId, Board } from '../typescript';
+import { BoardData, BoardId, Board } from '../types';
 import { ModelError } from '../errors';
 
 class BoardModelError extends ModelError {

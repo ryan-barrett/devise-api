@@ -1,6 +1,6 @@
 import { logger } from '../../utils/logger';
 import { TicketController } from '../../controllers';
-import { TicketId, TicketInput } from '../../typescript';
+import { TicketId, TicketInput } from '../../types';
 import { ServiceError } from '../../errors';
 import { validateTicketStatus } from '../../utils/resolver';
 

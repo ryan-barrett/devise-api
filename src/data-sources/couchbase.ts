@@ -1,6 +1,6 @@
 import config from 'config';
 import { Cluster } from 'couchbase';
-import type { CbConnectionUrl, Id, CouchbaseConnectionOptions, QueryResult } from '../typescript';
+import type { CbConnectionUrl, Id, CouchbaseConnectionOptions, QueryResult } from '../types';
 
 const couchbaseConfig: any = config.get('couchbaseConfig');
 const { couchbaseUrl, cbUsername, cbPassword, defaultBucket } = couchbaseConfig;

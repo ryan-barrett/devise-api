@@ -1,6 +1,6 @@
-import { BoardModel } from '../models/board';
-import { UserModel } from '../models/user';
-import { BoardId, UserId } from '../typescript';
+import { BoardModel } from '../models';
+import { UserModel } from '../models';
+import { BoardId, UserId } from '../types';
 
 export const validateBoards = async (boards: Array<BoardId>): Promise<boolean> => {
   for (let board of boards) {

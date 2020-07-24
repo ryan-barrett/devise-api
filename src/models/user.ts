@@ -1,5 +1,5 @@
 import { connection } from '../data-sources/couchbase';
-import { BoardId, UserId, UserData, User } from '../typescript';
+import { BoardId, UserId, UserData, User } from '../types';
 import { ModelError } from '../errors';
 
 class UserModelError extends ModelError {

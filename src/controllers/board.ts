@@ -1,7 +1,7 @@
 import { logger } from '../utils/logger';
 import { generateId } from '../utils/generateId';
 import { BoardModel } from '../models';
-import { BoardId, BoardData, Board } from '../typescript';
+import { BoardId, BoardData, Board } from '../types';
 
 export class BoardController {
   public static async Get(boardId: BoardId): Promise<Board> {
