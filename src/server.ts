@@ -1,33 +1,25 @@
 import express from 'express';
-import graphqlHTTP from 'express-graphql';
 import { logger } from './utils/logger';
 
-import { graphqlConfig } from './types/interfaces';
-
 export class Server {
-  private listener: any;
-  private app: Readonly<any> = express();
+  protected listener: any;
+  protected app: Readonly<any> = express();
+  protected logger = logger;
 
   /**
    *
    * @param port
-   * @param graphql - graphql config containing schema
-   * @param optionalMiddleWare - an array of optional additional middleware to apply to the server
+   * @param middleware - an array of optional additional middleware to apply to the server
    */
-  constructor(
-    private readonly port: string,
-    graphql: graphqlConfig,
-    optionalMiddleWare: Array<Function> = []
-  ) {
-    this.applyMiddleware(optionalMiddleWare);
-    this.app.use('/graphql', graphqlHTTP(graphql));
+  constructor(protected readonly port: string, middleware: Array<Function> = []) {
+    this.applyMiddleware(middleware);
   }
 
   start(): Promise<any> {
     return new Promise((resolve, reject) => {
       try {
         this.listener = this.app.listen(this.port, () => {
-          logger.info({ event: 'START' }, ` server started - running on port ${this.port}`);
+          this.logger.info({ event: 'START' }, ` server started - running on port ${this.port}`);
         });
         resolve();
       }

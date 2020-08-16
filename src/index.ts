@@ -1,11 +1,11 @@
 require('dotenv').config();
-import { Server } from './server';
-import schema from './graphql/schema';
 import config from 'config';
+import { GraphqlServer } from './servers/graphql';
+import schema from './graphql/schema';
 import { logger } from './utils/logger';
 
 const port: string = config.get('port');
-const server = new Server(port, schema());
+const server = new GraphqlServer(port, schema());
 
 async function shutDown() {
   logger.info('\n shutting down');
