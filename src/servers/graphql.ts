@@ -5,8 +5,8 @@ import { Server }        from './server';
 export class GraphqlServer extends Server {
   private graphql: graphqlConfig;
 
-  constructor(protected readonly port: string, graphql: graphqlConfig) {
-    super(port);
+  constructor(protected readonly port: string, graphql: graphqlConfig, middleware: Array<Function> = []) {
+    super(port, middleware);
     this.graphql = graphql;
     this.app.use('/graphql', graphqlHTTP(graphql));
   }
