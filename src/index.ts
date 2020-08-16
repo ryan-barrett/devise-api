@@ -14,7 +14,7 @@ async function shutDown() {
 }
 
 server.start().then(() => {
-  process.on('SIGTERM', shutDown);
-  process.on('SIGINT', shutDown);
+  // process.on('SIGTERM', shutDown);
+  // process.on('SIGINT', shutDown);
   logger.info('idle...');
 });

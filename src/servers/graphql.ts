@@ -1,6 +1,6 @@
 import { graphqlConfig } from '../types/interfaces';
 import graphqlHTTP from 'express-graphql';
-import { Server } from '../server';
+import { Server } from './server';
 
 export class GraphqlServer extends Server {
   private graphql: graphqlConfig;
