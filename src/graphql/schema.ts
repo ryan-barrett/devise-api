@@ -1,4 +1,4 @@
-import { buildSchema } from 'graphql';
+import { buildSchema }         from 'graphql';
 import { customFormatErrorFn } from '../errors';
 import {
   getUser,
@@ -11,7 +11,7 @@ import {
   getTickets,
   createTicket,
   updateTicket
-} from './resolvers';
+}                              from './resolvers';
 
 export default () => {
   const schema = buildSchema(`
@@ -64,7 +64,7 @@ input ticketInput {
 }
 
 type Query {
-  getUser(input: String!): User
+  getUser(userId: String!): User
   getBoard(input: String!): Board
   getTicket(input: String!): Ticket
   getTickets(input: [String!]): [Ticket] 

@@ -1,4 +1,4 @@
-import express from 'express';
+import express    from 'express';
 import { logger } from '../utils/logger';
 
 export class Server {

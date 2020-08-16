@@ -1,8 +1,8 @@
-import { logger } from '../utils/logger';
-import { generateId } from '../utils/generateId';
-import { UserModel } from '../models';
-import { validateBoards } from '../utils/controller';
-import { ControllerError } from '../errors';
+import { logger }                      from '../utils/logger';
+import { generateId }                  from '../utils/generateId';
+import { UserModel }                   from '../models';
+import { validateBoards }              from '../utils/controller';
+import { ControllerError }             from '../errors';
 import type { UserId, UserData, User } from '../types';
 
 class UserControllerError extends ControllerError {

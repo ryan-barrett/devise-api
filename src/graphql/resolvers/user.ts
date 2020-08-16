@@ -1,24 +1,14 @@
-import { logger } from '../../utils/logger';
-import { UserController } from '../../controllers';
+import { app }               from '../../index';
+import { logger }            from '../../utils/logger';
+import { UserController }    from '../../controllers';
 import { UserId, UserInput } from '../../types';
-import { ServiceError } from '../../errors';
+import { ServiceError }      from '../../errors';
 
 class UserServiceError extends ServiceError {
 }
 
-export async function getUser(args: UserId) {
-  // @ts-ignore
-  const { input } = args;
-
-  logger.info({ input }, 'received getUser request');
-
-  try {
-    return await UserController.Get(input);
-  }
-  catch (error) {
-    const { message } = error;
-    throw new UserServiceError(500, message, error);
-  }
+export async function getUser({ userId }: { [key: string]: string }) {
+  return app.emitAwait('UserService:getUser', [userId]);
 }
 
 export async function createUser(args: UserInput) {
