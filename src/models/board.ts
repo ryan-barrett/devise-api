@@ -6,6 +6,7 @@ class BoardModelError extends ModelError {
 }
 
 export class BoardModel {
+  type = 'board';
   id: BoardId;
   name: string;
   dateCreated: Date;

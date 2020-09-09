@@ -1,11 +1,13 @@
-import { logger } from '../utils/logger';
-import { generateId } from '../utils/generateId';
-import { BoardModel } from '../models';
-import { BoardId, BoardData, Board } from '../types';
+import { logger }                            from '../utils/logger';
+import { generateId }                        from '../utils/generateId';
+import { BoardModel, TicketModel }           from '../models';
+import { BoardId, BoardData, Board, Ticket } from '../types';
 
 export class BoardController {
-  public static async Get(boardId: BoardId): Promise<Board> {
-    return await BoardModel.Find(boardId);
+  public static async Get(boardId: BoardId): Promise<Board & { [key: string]: any }> {
+    const board = await BoardModel.Find(boardId);
+    const { rows: tickets } = await TicketModel.GetAllTickets(boardId);
+    return { ...board, tickets };
   }
 
   public static async Create(newBoardData: BoardData): Promise<Board> {

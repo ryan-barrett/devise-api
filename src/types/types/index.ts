@@ -17,6 +17,7 @@ type Json =
 type Ticket = {
   id: TicketId,
   user: UserId,
+  assignee: string,
   status: string,
   board: BoardId,
   title: string,

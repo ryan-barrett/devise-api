@@ -34,6 +34,7 @@ type Board {
   name: String!
   dateCreated: String
   lastUpdated: String
+  tickets: [Ticket]
 }
 
 input boardInput {
@@ -44,6 +45,7 @@ input boardInput {
 type Ticket {
   id: String!
   user: String
+  assignee: String
   status: String
   board: String
   title: String

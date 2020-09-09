@@ -1,8 +1,8 @@
-import { logger } from '../utils/logger';
-import { generateId } from '../utils/generateId';
-import { TicketModel } from '../models';
-import { validateUser } from '../utils/controller';
-import { ControllerError } from '../errors';
+import { logger }                       from '../utils/logger';
+import { generateId }                   from '../utils/generateId';
+import { TicketModel, UserModel }       from '../models';
+import { validateUser }                 from '../utils/controller';
+import { ControllerError }              from '../errors';
 import { TicketId, TicketData, Ticket } from '../types';
 
 class TicketControllerError extends ControllerError {
@@ -27,12 +27,13 @@ export class TicketController {
     if (user && !await validateUser(user)) {
       throw new TicketControllerError(400, 'cannot create ticket with invalid user');
     }
+    const { email } = await UserModel.Find(user);
 
     newTicketData.id = `ticket-${await generateId()}`;
     newTicketData.dateCreated = new Date();
     newTicketData.lastUpdated = new Date();
 
-    const newTicket = new TicketModel(newTicketData);
+    const newTicket = new TicketModel({ ...newTicketData, assignee: email });
     const response = await TicketModel.Put(newTicket);
 
     logger.info({ newTicket, response }, 'new ticket created');
@@ -44,6 +45,8 @@ export class TicketController {
 
     const existingTicket = await TicketModel.Find(id);
     existingTicket.user = user;
+    const { email } = await UserModel.Find(user);
+    existingTicket.assignee = email;
     existingTicket.board = board;
     existingTicket.title = title;
     existingTicket.estimate = estimate;

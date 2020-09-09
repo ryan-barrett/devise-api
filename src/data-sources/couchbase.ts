@@ -17,8 +17,8 @@ class CouchbaseConnection {
     this.collection = this.bucket.defaultCollection();
   }
 
-  async query(query: string): Promise<QueryResult> {
-    return await this.connection.query(query);
+  async query(query: string, args: Array<any>): Promise<QueryResult> {
+    return await this.connection.query(query, { parameters: args });
   }
 
   async upsert(key: string, document: any) {

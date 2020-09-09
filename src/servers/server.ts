@@ -42,7 +42,7 @@ export class Server {
 
   applyMiddleware(middleware: Array<Function>): void {
     for (let i = 0; i < middleware.length; i++) {
-      this.app.use(middleware[i]);
+      this.app.use(middleware[i]());
     }
   }
 }

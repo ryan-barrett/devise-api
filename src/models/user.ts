@@ -6,6 +6,7 @@ class UserModelError extends ModelError {
 }
 
 export class UserModel {
+  type = 'user';
   id: UserId;
   userName: string;
   email: string;
