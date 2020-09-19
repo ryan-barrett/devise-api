@@ -1,13 +1,15 @@
-import { logger }                            from '../utils/logger';
-import { generateId }                        from '../utils/generateId';
-import { BoardModel, TicketModel }           from '../models';
-import { BoardId, BoardData, Board, Ticket } from '../types';
+import { logger }                    from '../utils/logger';
+import { generateId }                from '../utils/generateId';
+import { BoardModel, TicketModel }   from '../models';
+import { BoardId, BoardData, Board } from '../types';
 
 export class BoardController {
   public static async Get(boardId: BoardId): Promise<Board & { [key: string]: any }> {
     const board = await BoardModel.Find(boardId);
     const { rows: tickets } = await TicketModel.GetAllTickets(boardId);
-    return { ...board, tickets };
+    // @ts-ignore
+    const sortedTickets = tickets.sort((a, b) => a.dateCreated - b.dateCreated);
+    return { ...board, tickets: sortedTickets };
   }
 
   public static async Create(newBoardData: BoardData): Promise<Board> {
@@ -27,7 +29,7 @@ export class BoardController {
 
     const existingBoard = await BoardModel.Find(id);
     existingBoard.name = name ? name : existingBoard.name;
-    existingBoard.lastUpdated = Date.now()
+    existingBoard.lastUpdated = Date.now();
 
     const updatedBoard = new BoardModel(existingBoard);
     const response = await BoardModel.Put(updatedBoard);
