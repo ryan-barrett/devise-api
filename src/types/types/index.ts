@@ -23,8 +23,8 @@ type Ticket = {
   title: string,
   estimate: string,
   description: string,
-  dateCreated: Date,
-  lastUpdated: Date,
+  dateCreated: number,
+  lastUpdated: number,
 };
 
 type User = {
@@ -37,8 +37,8 @@ type User = {
 type Board = {
   id: BoardId,
   name: string,
-  dateCreated: Date,
-  lastUpdated: Date,
+  dateCreated: number,
+  lastUpdated: number,
 }
 
 export type {

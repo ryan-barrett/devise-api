@@ -9,6 +9,6 @@ export interface TicketData {
   title: string;
   estimate: string;
   description: string;
-  dateCreated: Date;
-  lastUpdated: Date;
+  dateCreated: number;
+  lastUpdated: number;
 }

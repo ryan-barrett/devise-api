@@ -12,8 +12,8 @@ export class BoardController {
 
   public static async Create(newBoardData: BoardData): Promise<Board> {
     newBoardData.id = `board-${await generateId()}`;
-    newBoardData.dateCreated = new Date();
-    newBoardData.lastUpdated = new Date();
+    newBoardData.dateCreated = Date.now();
+    newBoardData.lastUpdated = Date.now();
 
     const newUser = new BoardModel(newBoardData);
     const response = await BoardModel.Put(newUser);
@@ -27,7 +27,7 @@ export class BoardController {
 
     const existingBoard = await BoardModel.Find(id);
     existingBoard.name = name ? name : existingBoard.name;
-    existingBoard.lastUpdated = new Date();
+    existingBoard.lastUpdated = Date.now()
 
     const updatedBoard = new BoardModel(existingBoard);
     const response = await BoardModel.Put(updatedBoard);

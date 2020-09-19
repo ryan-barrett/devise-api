@@ -19,8 +19,8 @@ export class TicketModel {
   title: string;
   estimate: string;
   description: string;
-  dateCreated: Date;
-  lastUpdated: Date;
+  dateCreated: number;
+  lastUpdated: number;
 
   constructor(data: TicketData) {
     const { id, user, assignee, status, boardId, title, estimate, description, dateCreated, lastUpdated } = data;

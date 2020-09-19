@@ -30,8 +30,8 @@ export class TicketController {
     const { email } = await UserModel.Find(user);
 
     newTicketData.id = `ticket-${await generateId()}`;
-    newTicketData.dateCreated = new Date();
-    newTicketData.lastUpdated = new Date();
+    newTicketData.dateCreated = Date.now();
+    newTicketData.lastUpdated = Date.now()
 
     const newTicket = new TicketModel({ ...newTicketData, assignee: email });
     const response = await TicketModel.Put(newTicket);
@@ -51,7 +51,7 @@ export class TicketController {
     existingTicket.title = title;
     existingTicket.estimate = estimate;
     existingTicket.description = description;
-    existingTicket.lastUpdated = new Date();
+    existingTicket.lastUpdated = Date.now();
 
     const updatedTicket = new TicketModel(existingTicket);
     const response = await TicketModel.Put(updatedTicket);

@@ -9,8 +9,8 @@ export class BoardModel {
   type = 'board';
   id: BoardId;
   name: string;
-  dateCreated: Date;
-  lastUpdated: Date;
+  dateCreated: number;
+  lastUpdated: number;
 
   constructor(data: BoardData) {
     const { name, lastUpdated, dateCreated, id } = data;
