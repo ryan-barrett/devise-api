@@ -40,7 +40,7 @@ export async function getTickets(args: Array<TicketId>) {
 export async function createTicket(args: TicketInput) {
   // @ts-ignore
   const { input } = args;
-  const { title, user, board, estimate, description, status } = input;
+  const { title, user, boardId, estimate, description, status } = input;
   logger.info({ title }, 'received createTicket request');
 
   if (title === undefined) {

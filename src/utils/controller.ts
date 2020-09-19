@@ -1,6 +1,7 @@
-import { BoardModel } from '../models';
-import { UserModel } from '../models';
+import { BoardModel }      from '../models';
+import { UserModel }       from '../models';
 import { BoardId, UserId } from '../types';
+import { logger }          from './logger';
 
 export const validateBoards = async (boards: Array<BoardId>): Promise<boolean> => {
   for (let board of boards) {
@@ -11,6 +12,12 @@ export const validateBoards = async (boards: Array<BoardId>): Promise<boolean> =
 };
 
 export const validateUser = async (userId: UserId): Promise<boolean> => {
-  const userData = await UserModel.Find(userId);
-  return userData !== undefined;
+  try {
+    const userData = await UserModel.Find(userId);
+    return userData !== undefined;
+  }
+  catch (error) {
+    logger.error({ userId, error }, 'Error validating user');
+    throw new Error(`Error getting user or user does not exist, ${error}`);
+  }
 };

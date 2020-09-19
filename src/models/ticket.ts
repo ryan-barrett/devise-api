@@ -15,20 +15,20 @@ export class TicketModel {
   user: UserId;
   assignee: string;
   status: string;
-  board: BoardId;
+  boardId: BoardId;
   title: string;
-  estimate: number;
+  estimate: string;
   description: string;
   dateCreated: Date;
   lastUpdated: Date;
 
   constructor(data: TicketData) {
-    const { id, user, assignee, status, board, title, estimate, description, dateCreated, lastUpdated } = data;
+    const { id, user, assignee, status, boardId, title, estimate, description, dateCreated, lastUpdated } = data;
     this.id = id;
     this.user = user;
     this.assignee = assignee;
     this.status = status;
-    this.board = board;
+    this.boardId = boardId;
     this.title = title;
     this.estimate = estimate;
     this.description = description;
@@ -53,6 +53,6 @@ export class TicketModel {
   }
 
   static async GetAllTickets(boardId: string) {
-    return connection.query(`SELECT b.* FROM ${defaultBucket} WHERE board = $1`, [boardId]);
+    return connection.query(`SELECT b.* FROM ${defaultBucket} WHERE boardId = $1`, [boardId]);
   }
 }

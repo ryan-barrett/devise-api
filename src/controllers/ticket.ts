@@ -41,13 +41,13 @@ export class TicketController {
   }
 
   public static async Update(ticketData: TicketData): Promise<Ticket> {
-    const { id, user, board, title, estimate, description } = ticketData;
+    const { id, user, boardId, title, estimate, description } = ticketData;
 
     const existingTicket = await TicketModel.Find(id);
     existingTicket.user = user;
     const { email } = await UserModel.Find(user);
     existingTicket.assignee = email;
-    existingTicket.board = board;
+    existingTicket.boardId = boardId;
     existingTicket.title = title;
     existingTicket.estimate = estimate;
     existingTicket.description = description;

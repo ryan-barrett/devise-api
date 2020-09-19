@@ -47,9 +47,9 @@ type Ticket {
   user: String
   assignee: String
   status: String
-  board: String
+  boardId: String
   title: String
-  estimate: Int
+  estimate: String
   description: String
   dateCreated: String
   lastUpdated: String
@@ -59,9 +59,9 @@ input ticketInput {
   id: String
   user: String
   status: String
-  board: String
+  boardId: String
   title: String
-  estimate: Int
+  estimate: String
   description: String
 }
 

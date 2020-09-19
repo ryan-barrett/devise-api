@@ -5,9 +5,9 @@ export interface TicketData {
   user: UserId;
   assignee: string;
   status: string,
-  board: BoardId;
+  boardId: BoardId;
   title: string;
-  estimate: number;
+  estimate: string;
   description: string;
   dateCreated: Date;
   lastUpdated: Date;
