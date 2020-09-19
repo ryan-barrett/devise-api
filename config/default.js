@@ -6,5 +6,4 @@ module.exports = {
     cbUsername: process.env.CB_USERNAME || '',
     cbPassword: process.env.CB_PASSWORD || '',
   },
-  ticketStatusList: process.env.TICKET_STATUS_LIST || ['todo', 'in progress', 'done'],
 }

@@ -1,8 +1,13 @@
-import { logger } from '../../utils/logger';
-import { TicketController } from '../../controllers';
+import { logger }                from '../../utils/logger';
+import { TicketController }      from '../../controllers';
 import { TicketId, TicketInput } from '../../types';
-import { ServiceError } from '../../errors';
-import { validateTicketStatus } from '../../utils/resolver';
+import { ServiceError }          from '../../errors';
+
+const ticketStatusTypes: { [key: string]: string } = {
+  todo: 'todo',
+  'in progress': 'in progress',
+  done: 'done',
+};
 
 class TicketServiceError extends ServiceError {
 }
@@ -43,11 +48,7 @@ export async function createTicket(args: TicketInput) {
   const { title, user, boardId, estimate, description, status } = input;
   logger.info({ title }, 'received createTicket request');
 
-  if (title === undefined) {
-    throw new TicketServiceError(400, 'no board name specified for create ticket action');
-  }
-
-  if (!validateTicketStatus(status)) {
+  if (!ticketStatusTypes[status]) {
     throw new TicketServiceError(400, 'invalid status for create ticket action');
   }
 
@@ -67,11 +68,7 @@ export async function updateTicket(args: TicketInput) {
   const { id, status } = input;
   logger.info({ id }, 'received updateTicket request');
 
-  if (id === undefined) {
-    throw new TicketServiceError(400, 'no id specified for update ticket action');
-  }
-
-  if (!validateTicketStatus(status)) {
+  if (!ticketStatusTypes[status]) {
     throw new TicketServiceError(400, 'invalid status for update ticket action');
   }
 

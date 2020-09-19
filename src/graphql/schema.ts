@@ -56,11 +56,21 @@ type Ticket {
 }
 
 input ticketInput {
-  id: String
+  id: String!
   user: String
   status: String
   boardId: String
   title: String
+  estimate: String
+  description: String
+}
+
+input createTicketInput {
+  id: String
+  user: String!
+  status: String!
+  boardId: String!
+  title: String!
   estimate: String
   description: String
 }
@@ -77,7 +87,7 @@ type Mutation {
   updateUser(input: userInput): User
   createBoard(input: boardInput): Board
   updateBoard(input: boardInput): Board
-  createTicket(input: ticketInput): Ticket
+  createTicket(input: createTicketInput): Ticket
   updateTicket(input: ticketInput): Ticket
 }
 `);
