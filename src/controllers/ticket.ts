@@ -31,7 +31,7 @@ export class TicketController {
 
     newTicketData.id = `ticket-${await generateId()}`;
     newTicketData.dateCreated = Date.now();
-    newTicketData.lastUpdated = Date.now()
+    newTicketData.lastUpdated = Date.now();
 
     const newTicket = new TicketModel({ ...newTicketData, assignee: email });
     const response = await TicketModel.Put(newTicket);
@@ -41,7 +41,7 @@ export class TicketController {
   }
 
   public static async Update(ticketData: TicketData): Promise<Ticket> {
-    const { id, user, boardId, title, estimate, description } = ticketData;
+    const { id, user, boardId, title, estimate, description, status } = ticketData;
 
     const existingTicket = await TicketModel.Find(id);
     existingTicket.user = user;
@@ -49,6 +49,7 @@ export class TicketController {
     existingTicket.assignee = email;
     existingTicket.boardId = boardId;
     existingTicket.title = title;
+    existingTicket.status = status;
     existingTicket.estimate = estimate;
     existingTicket.description = description;
     existingTicket.lastUpdated = Date.now();
