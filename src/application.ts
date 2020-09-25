@@ -1,16 +1,16 @@
 import { EventEmitter, once } from 'events';
 import { v4 as uuidv4 }       from 'uuid';
-import { UserService }        from './services/user';
+import * as Services          from './services';
 
 export class Application {
   private readonly _emitter: any;
   private readonly _servers: Array<any>;
-  private _serviceMap: any;
+  private readonly _serviceMap: any;
 
   constructor(servers: Array<any>) {
     this._emitter = new EventEmitter();
     this._servers = servers;
-    this._serviceMap = { UserService: UserService };
+    this._serviceMap = Application.BuildServiceMap(Services);
     this._emitter.on('event', this.digest.bind(this));
   }
 
@@ -26,7 +26,11 @@ export class Application {
     }
   }
 
-  public async emitAwait(event: string, args: any) {
+  public async callService(service: string, method: string, args: Array<any>) {
+    return this.emitAwait(`${service}:${method}`, args);
+  }
+
+  private async emitAwait(event: string, args: any) {
     const [service, functionName] = event.split(':');
     const eventId = uuidv4();
     this._emitter.emit('event', eventId, service, functionName, args);
@@ -34,7 +38,7 @@ export class Application {
     return value;
   }
 
-  public async digest(eventId: string, service: string, functionName: any, functionArgs: any) {
+  private async digest(eventId: string, service: string, functionName: any, functionArgs: any) {
     try {
       if (this._serviceMap[service]) {
         console.log(functionArgs);
@@ -45,5 +49,15 @@ export class Application {
     catch (error) {
       this._emitter.emit(eventId, error);
     }
+  }
+
+  private static BuildServiceMap(services: any) {
+    const serviceMap: any = {};
+    const keys = Object.keys(services);
+
+    for (let i = 0; i < keys.length; i++) {
+      serviceMap[keys[i]] = services[keys[i]];
+    }
+    return serviceMap;
   }
 }
