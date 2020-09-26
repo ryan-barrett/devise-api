@@ -13,8 +13,9 @@ export class AuthenticationService extends Service {
 
   async login(email: string, password: string) {
     const user = await AuthenticationController.MatchUser(email);
+    const validPassword = await AuthenticationController.VerifyPassword(user, password);
 
-    if (user.password === password) {
+    if (validPassword) {
       const jwt = AuthenticationController.GenerateJwt(user);
       return { jwt };
     }

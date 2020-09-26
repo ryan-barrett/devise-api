@@ -1,9 +1,14 @@
+import bcrypt                          from 'bcrypt';
+import config                          from 'config';
 import { logger }                      from '../utils/logger';
 import { generateId }                  from '../utils/generateId';
 import { UserModel }                   from '../models';
 import { validateBoards }              from '../utils/controller';
 import { ControllerError }             from '../errors';
 import type { UserId, UserData, User } from '../types';
+
+const encryption: { [key: string]: any } = config.get('encryption');
+const { saltRounds } = encryption;
 
 class UserControllerError extends ControllerError {
 }
@@ -17,7 +22,13 @@ export class UserController {
     newUserData.id = `user-${await generateId()}`;
     newUserData.boards = [];
 
-    const newUser = new UserModel(newUserData);
+    const { password } = newUserData;
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const updatedUserData = { ...newUserData, password: hashedPassword };
+
+    const newUser = new UserModel(updatedUserData);
     const response = await UserModel.Put(newUser);
 
     logger.info({ response }, 'new user created',);

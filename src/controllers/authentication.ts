@@ -1,4 +1,5 @@
 import jwt                                   from 'jsonwebtoken';
+import bcrypt                                from 'bcrypt';
 import config                                from 'config';
 import { UserModel }                         from '../models';
 import { ControllerError }                   from '../errors';
@@ -19,5 +20,9 @@ export class AuthenticationController {
     const filteredUser = { ...user };
     delete filteredUser.password;
     return jwt.sign(user, privateKey, { algorithm: 'RS256' });
+  }
+
+  public static VerifyPassword(user: User, password: string) {
+    return bcrypt.compare(password, user.password);
   }
 }

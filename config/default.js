@@ -9,5 +9,8 @@ module.exports = {
   jwt: {
     publicKey: process.env.PUBLIC_KEY,
     privateKey: process.env.PRIVATE_KEY,
+  },
+  encryption: {
+    saltRounds: 10,
   }
 };
