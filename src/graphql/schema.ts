@@ -11,7 +11,6 @@ import {
   getTickets,
   createTicket,
   updateTicket,
-  login,
 }                              from './resolvers';
 
 export default () => {
@@ -57,10 +56,6 @@ type Ticket {
   lastUpdated: String
 }
 
-type LoginResponse {
-  jwt: String!
-}
-
 input ticketInput {
   id: String!
   user: String
@@ -81,11 +76,6 @@ input createTicketInput {
   description: String
 }
 
-input loginInput {
-  email: String!
-  password: String!
-}
-
 type Query {
   getUser(userId: String!): User
   getBoard(input: String!): Board
@@ -100,7 +90,6 @@ type Mutation {
   updateBoard(input: boardInput): Board
   createTicket(input: createTicketInput): Ticket
   updateTicket(input: ticketInput): Ticket
-  login(input: loginInput): LoginResponse
 }
 `);
 
@@ -117,7 +106,6 @@ type Mutation {
       getTickets,
       createTicket,
       updateTicket,
-      login,
     },
     graphiql: true,
     customFormatErrorFn,

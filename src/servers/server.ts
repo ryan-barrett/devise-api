@@ -1,5 +1,7 @@
-import express    from 'express';
-import { logger } from '../utils/logger';
+import express                   from 'express';
+import bodyParser                from 'body-parser';
+import { AuthenticationService } from '../services';
+import { logger }                from '../utils/logger';
 
 export class Server {
   protected listener: any;
@@ -12,7 +14,14 @@ export class Server {
    * @param middleware - an array of optional additional middleware to apply to the server
    */
   constructor(protected readonly port: string, middleware: Array<Function> = []) {
+    this.app.use(bodyParser.json());
     this.applyMiddleware(middleware);
+
+    this.app.get('/login/:email/:password', async (req: any, res: any) => {
+      const { params } = req;
+      const { email, password } = params;
+      res.json(await AuthenticationService.Login(email, password));
+    });
   }
 
   start(): Promise<any> {

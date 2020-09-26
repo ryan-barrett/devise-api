@@ -11,7 +11,7 @@ export class AuthenticationService extends Service {
     super(...args);
   }
 
-  async login(email: string, password: string) {
+  public static async Login(email: string, password: string) {
     const user = await AuthenticationController.MatchUser(email);
     const validPassword = await AuthenticationController.VerifyPassword(user, password);
 
@@ -20,5 +20,9 @@ export class AuthenticationService extends Service {
       return { jwt };
     }
     throw new AuthenticationServiceError(401, 'invalid login credentials');
+  }
+
+  public static async ValidateJwt(request: any) {
+    console.log(request);
   }
 }
