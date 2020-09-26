@@ -1,6 +1,7 @@
 import { EventEmitter, once } from 'events';
 import { v4 as uuidv4 }       from 'uuid';
 import * as Services          from './services';
+import { logger }             from './utils/logger';
 
 export class Application {
   private readonly _emitter: any;
@@ -27,6 +28,7 @@ export class Application {
   }
 
   public async callService(service: string, method: string, args: Array<any>) {
+    logger.info({ service, method, args }, 'calling service');
     return this.emitAwait(`${service}:${method}`, args);
   }
 
@@ -41,7 +43,6 @@ export class Application {
   private async digest(eventId: string, service: string, functionName: any, functionArgs: any) {
     try {
       if (this._serviceMap[service]) {
-        console.log(functionArgs);
         const response = await (new this._serviceMap[service])[functionName](...functionArgs);
         this._emitter.emit(eventId, response);
       }

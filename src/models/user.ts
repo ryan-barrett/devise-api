@@ -1,6 +1,11 @@
-import { connection } from '../data-sources/couchbase';
+import config                              from 'config';
+import { logger }                          from '../utils/logger';
+import { connection }                      from '../data-sources/couchbase';
 import { BoardId, UserId, UserData, User } from '../types';
-import { ModelError } from '../errors';
+import { ModelError }                      from '../errors';
+
+const couchbaseConfig: any = config.get('couchbaseConfig');
+const { defaultBucket } = couchbaseConfig;
 
 class UserModelError extends ModelError {
 }
@@ -10,14 +15,16 @@ export class UserModel {
   id: UserId;
   userName: string;
   email: string;
+  password: string;
   boards: Array<BoardId>;
 
   constructor(data: UserData) {
-    const { id, userName, email, boards } = data;
+    const { id, userName, email, boards, password } = data;
     this.id = id;
     this.userName = userName;
     this.email = email;
     this.boards = boards;
+    this.password = password;
   }
 
   getId(): UserId {
@@ -34,5 +41,12 @@ export class UserModel {
 
   static async Put(user: UserModel): Promise<any> {
     return await connection.upsert(user.getId(), user);
+  }
+
+  static async Match(email: string): Promise<User> {
+    const { rows, meta } = await connection.query(`SELECT b.* FROM ${defaultBucket} WHERE email = $1`, [email]);
+    logger.debug(meta);
+    // @ts-ignore
+    return rows[0];
   }
 }

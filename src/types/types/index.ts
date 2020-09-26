@@ -31,7 +31,8 @@ type User = {
   id: UserId,
   userName: string,
   email: string,
-  boards: Array<BoardId>
+  boards: Array<BoardId>,
+  password: string
 }
 
 type Board = {
