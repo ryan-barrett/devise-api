@@ -8,12 +8,11 @@ class UserServiceError extends ServiceError {
 }
 
 export class UserService extends Service {
-  constructor(...args: any) {
-    super(...args);
+  constructor(user?: { [key: string]: string | Array<string> }) {
+    super(user);
   }
 
   public async getUser(userId: string) {
-    console.log(userId);
     logger.info({ userId }, 'received getUser request');
 
     try {

@@ -7,8 +7,10 @@ import { ServiceError }      from '../../errors';
 class UserServiceError extends ServiceError {
 }
 
-export async function getUser({ userId }: { [key: string]: string }) {
-  return app.callService('UserService', 'getUser', [userId]);
+export async function getUser(input: any, context: any) {
+  const caller = context.user;
+  const { userId } = input;
+  return app.callService('UserService', 'getUser', [userId], caller);
 }
 
 export async function createUser(args: UserInput) {

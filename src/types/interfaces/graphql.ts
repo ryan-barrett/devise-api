@@ -29,4 +29,5 @@ export interface graphqlConfig {
   schema: any;
   rootValue: any;
   graphql?: boolean;
+  context?: any;
 }

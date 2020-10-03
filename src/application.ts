@@ -27,23 +27,23 @@ export class Application {
     }
   }
 
-  public async callService(service: string, method: string, args: Array<any>) {
+  public async callService(service: string, method: string, args: Array<any>, user?: { [key: string]: string | Array<string> }) {
     logger.info({ service, method, args }, 'calling service');
-    return this.emitAwait(`${service}:${method}`, args);
+    return this.emitAwait(`${service}:${method}`, args, user);
   }
 
-  private async emitAwait(event: string, args: any) {
+  private async emitAwait(event: string, args: any, user?: { [key: string]: string | Array<string> }) {
     const [service, functionName] = event.split(':');
     const eventId = uuidv4();
-    this._emitter.emit('event', eventId, service, functionName, args);
+    this._emitter.emit('event', eventId, service, functionName, args, user);
     const [value] = await once(this._emitter, eventId);
     return value;
   }
 
-  private async digest(eventId: string, service: string, functionName: any, functionArgs: any) {
+  private async digest(eventId: string, service: string, functionName: any, functionArgs: any, user?: { [key: string]: string | Array<string> }) {
     try {
       if (this._serviceMap[service]) {
-        const response = await (new this._serviceMap[service])[functionName](...functionArgs);
+        const response = await (new this._serviceMap[service](user))[functionName](...functionArgs);
         this._emitter.emit(eventId, response);
       }
     }
