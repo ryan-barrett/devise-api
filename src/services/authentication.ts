@@ -12,12 +12,13 @@ export class AuthenticationService extends Service {
   }
 
   public static async Login(email: string, password: string) {
-    logger.info({ email }, 'attempting to login');
+    logger.info({ email }, 'logging in');
     const user = await AuthenticationController.MatchUser(email);
     const validPassword = await AuthenticationController.VerifyPassword(user, password);
 
     if (validPassword) {
       const jwt = AuthenticationController.GenerateJwt(user);
+      logger.info({ email }, 'sending jwt');
       return { jwt };
     }
     throw new AuthenticationServiceError(401, 'invalid login credentials');

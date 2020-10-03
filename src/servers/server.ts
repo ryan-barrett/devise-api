@@ -20,7 +20,13 @@ export class Server {
     this.app.get('/login/:email/:password', async (req: any, res: any) => {
       const { params } = req;
       const { email, password } = params;
-      res.json(await AuthenticationService.Login(email, password));
+      try {
+        res.json(await AuthenticationService.Login(email, password));
+      }
+      catch (error) {
+        logger.error({ error }, 'error logging in');
+        return res.status(401).send({ message: 'invalid credentials' });
+      }
     });
   }
 

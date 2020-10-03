@@ -35,7 +35,7 @@ export class AuthenticationController {
     }
     catch (error) {
       logger.error({ error }, 'error parsing jwt');
-      return false;
+      return {};
     }
   }
 }

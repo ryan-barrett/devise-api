@@ -17,10 +17,13 @@ export class GraphqlServer extends Server {
     }));
   }
 
-  private static async ValidateJwtMiddleware(request: any) {
+  private static async ValidateJwtMiddleware(request: any, response: any) {
     logger.debug('hitting jwt middleware');
     const jwt = request.headers.authorization;
     const user = await AuthenticationService.ParseJwt(jwt);
+    if (!user.id) {
+      return response.status(401).send({ message: 'unauthorized' });
+    }
 
     logger.debug({ user });
     request.user = user;
