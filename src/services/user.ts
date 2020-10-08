@@ -12,7 +12,7 @@ export class UserService extends Service {
     super(user);
   }
 
-  public async getUser(userId: string) {
+  public async get(userId: string) {
     logger.info({ userId }, 'received getUser request');
 
     try {
@@ -24,7 +24,7 @@ export class UserService extends Service {
     }
   }
 
-  public async createUser(userData: User) {
+  public async create(userData: User) {
     const { userName, email } = userData;
     logger.info({ userName, email }, 'received createUser request');
 
@@ -37,7 +37,7 @@ export class UserService extends Service {
     }
   }
 
-  public async updateUser(userData: User) {
+  public async update(userData: User) {
     const { id, userName, email, boards } = userData;
     logger.info({ id, userName, email, boards }, 'received updateUser request');
 

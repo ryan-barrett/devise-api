@@ -1,62 +1,19 @@
-import { logger } from '../../utils/logger';
-import { BoardController } from '../../controllers';
-import { ServiceError } from '../../errors';
-import { BoardId, BoardInput } from '../../types';
+import { app }          from '../../index';
 
-class BoardServiceError extends ServiceError {
+export async function getBoard(args: any, context: any) {
+  const caller = context.user;
+  const { input } = args;
+  return app.callService('BoardService', 'get', [input], caller);
 }
 
-export async function getBoard(args: BoardId) {
-  // @ts-ignore
+export async function createBoard(args: any, context: any) {
+  const caller = context.user;
   const { input } = args;
-
-  logger.info({ input }, 'received getBoard request');
-
-  try {
-    return await BoardController.Get(input);
-  }
-  catch (error) {
-    const { message } = error;
-    throw new BoardServiceError(500, message, error);
-  }
+  return app.callService('BoardService', 'create', [input], caller);
 }
 
-export async function createBoard(args: BoardInput) {
-  // @ts-ignore
+export async function updateBoard(args: any, context: any) {
+  const caller = context.user;
   const { input } = args;
-  const { name } = input;
-
-  logger.info({ name }, 'received createBoard request');
-
-  if (name === undefined) {
-    throw new BoardServiceError(400, 'no name specified for creating new board');
-  }
-
-  try {
-    return await BoardController.Create(input);
-  }
-  catch (error) {
-    const { message } = error;
-    throw new BoardServiceError(500, message, error);
-  }
-}
-
-export async function updateBoard(args: BoardInput) {
-  // @ts-ignore
-  const { input } = args;
-  const { name, id } = input;
-
-  logger.info({ name, id }, 'received updateBoard request');
-
-  if (id === undefined) {
-    throw new BoardServiceError(400, 'no id specified for update board action');
-  }
-
-  try {
-    return await BoardController.Update(input);
-  }
-  catch (error) {
-    const { message } = error;
-    throw new BoardServiceError(500, message);
-  }
+  return app.callService('BoardService', 'update', [input], caller);
 }

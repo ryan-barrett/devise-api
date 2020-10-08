@@ -1,7 +1,7 @@
-import express                   from 'express';
-import bodyParser                from 'body-parser';
-import { AuthenticationService } from '../services';
-import { logger }                from '../utils/logger';
+import express               from 'express';
+import bodyParser            from 'body-parser';
+import { login, createUser } from '../routeHandlers';
+import { logger }            from '../utils/logger';
 
 export class Server {
   protected listener: any;
@@ -17,17 +17,8 @@ export class Server {
     this.app.use(bodyParser.json());
     this.applyMiddleware(middleware);
 
-    this.app.get('/login/:email/:password', async (req: any, res: any) => {
-      const { params } = req;
-      const { email, password } = params;
-      try {
-        res.json(await AuthenticationService.Login(email, password));
-      }
-      catch (error) {
-        logger.error({ error }, 'error logging in');
-        return res.status(401).send({ message: 'invalid credentials' });
-      }
-    });
+    this.app.get('/login/:email/:password', login);
+    this.app.post('/user/create', createUser);
   }
 
   start(): Promise<any> {

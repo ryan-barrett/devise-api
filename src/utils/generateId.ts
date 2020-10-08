@@ -1,9 +1,5 @@
-import { uuid } from 'uuidv4';
-import { connection } from '../data-sources/couchbase';
+import { v4 }         from 'uuid';
 
 export const generateId = async (): Promise<string> => {
-  const response = await connection.count();
-  const { rows } = response;
-  // @ts-ignore
-  return uuid() + Object.values(rows[0])[0];
+  return v4();
 };
