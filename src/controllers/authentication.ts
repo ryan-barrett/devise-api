@@ -32,9 +32,11 @@ export class AuthenticationController {
   }
 
   public static async ParseJwt(jwtToken: string) {
+    const rawToken = jwtToken.substr(7, jwtToken.length);
+
     try {
       // @ts-ignore
-      const { email, id, userName, boards } = await jwt.verify(jwtToken, publicKey);
+      const { email, id, userName, boards } = await jwt.verify(rawToken, publicKey);
       return { email, id, userName, boards };
     }
     catch (error) {

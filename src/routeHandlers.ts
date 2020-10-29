@@ -7,10 +7,12 @@ import { logger } from './utils/logger';
  */
 
 export async function login(req: any, res: any) {
-  const { params } = req;
-  const { email, password } = params;
+  const { body } = req;
+  const { email, password } = body;
   try {
-    res.json(await app.callService('AuthenticationService', 'login', [email, password]));
+    const { jwt } = await app.callService('AuthenticationService', 'login', [email, password]);
+    res.cookie('authorization', jwt);
+    res.status(200).send({ message: 'successfully logged in' });
   }
   catch (error) {
     logger.error({ error }, 'error logging in');

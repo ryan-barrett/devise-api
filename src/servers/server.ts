@@ -17,7 +17,7 @@ export class Server {
     this.app.use(bodyParser.json());
     this.applyMiddleware(middleware);
 
-    this.app.get('/login/:email/:password', login);
+    this.app.post('/login', login);
     this.app.post('/user/create', createUser);
   }
 
