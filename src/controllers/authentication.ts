@@ -24,6 +24,10 @@ export class AuthenticationController {
   }
 
   public static VerifyPassword(user: User, password: string) {
+    if (!user || !password) {
+      logger.error({ user, password }, 'invalid arguments');
+      throw new AuthenticationControllerError(500, 'VerifyPassword: invalid arguments');
+    }
     return bcrypt.compare(password, user.password);
   }
 

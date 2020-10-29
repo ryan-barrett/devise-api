@@ -14,6 +14,10 @@ export class AuthenticationService extends Service {
   public async login(email: string, password: string) {
     logger.info({ email }, 'logging in');
     const user = await AuthenticationController.MatchUser(email);
+    if (!user) {
+      throw new AuthenticationServiceError(401, 'invalid login credentials');
+    }
+
     const validPassword = await AuthenticationController.VerifyPassword(user, password);
 
     if (validPassword) {

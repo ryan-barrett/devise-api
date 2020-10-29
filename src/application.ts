@@ -29,7 +29,11 @@ export class Application {
 
   public async callService(service: string, method: string, args: Array<any>, user?: { [key: string]: string | Array<string> }) {
     logger.info({ service, method, args }, 'calling service');
-    return this.emitAwait(`${service}:${method}`, args, user);
+    const response = await this.emitAwait(`${service}:${method}`, args, user);
+    if (response._code && response.code > 299) {
+      throw response;
+    }
+    return response;
   }
 
   private async emitAwait(event: string, args: any, user?: { [key: string]: string | Array<string> }) {
