@@ -7,7 +7,7 @@ import schema            from './graphql/schema';
 import { logger }        from './utils/logger';
 
 const port: string = config.get('port');
-const graphqlServer = new GraphqlServer(port, schema(), [cors]); // TODO: specify remote app
+const graphqlServer = new GraphqlServer(port, schema(), [() => cors({ origin: true, credentials: true })]); // TODO: specify remote app
 
 export const app = new Application([graphqlServer]);
 
