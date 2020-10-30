@@ -1,6 +1,6 @@
-import { connection } from '../data-sources/couchbase';
-import { BoardData, BoardId, Board } from '../types';
-import { ModelError } from '../errors';
+import { connection }                from '../data-sources/couchbase';
+import { BoardData, BoardId, Board } from '../typing';
+import { ModelError }                from '../errors';
 
 class BoardModelError extends ModelError {
 }

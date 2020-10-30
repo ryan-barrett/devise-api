@@ -3,7 +3,7 @@ import bcrypt              from 'bcrypt';
 import config              from 'config';
 import { UserModel }       from '../models';
 import { ControllerError } from '../errors';
-import type { User }       from '../types';
+import type { User }       from '../typing';
 import { logger }          from '../utils/logger';
 
 const jwtConfig: { [key: string]: any } = config.get('jwt');

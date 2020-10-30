@@ -1,11 +1,11 @@
-import bcrypt                          from 'bcrypt';
-import config                          from 'config';
-import { logger }                      from '../utils/logger';
-import { generateId }                  from '../utils/generateId';
-import { UserModel }                   from '../models';
-import { validateBoards }              from '../utils/controller';
-import { ControllerError }             from '../errors';
-import type { UserId, UserData, User } from '../types';
+import bcrypt                                 from 'bcrypt';
+import config                                 from 'config';
+import { logger }                             from '../utils/logger';
+import { generateId }                         from '../utils/generateId';
+import { UserModel }                          from '../models';
+import { validateBoards }                     from '../utils/controller';
+import { ControllerError }                    from '../errors';
+import type { UserId, UserData, User, Board } from '../typing';
 
 const encryption: { [key: string]: any } = config.get('encryption');
 const { saltRounds } = encryption;

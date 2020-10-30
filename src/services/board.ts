@@ -1,8 +1,8 @@
 import { Service }         from './service';
 import { logger }          from '../utils/logger';
 import { BoardController } from '../controllers';
-import { ServiceError }    from '../errors';
-import { BoardData }       from '../types/interfaces';
+import { ServiceError } from '../errors';
+import { BoardData }    from '../typing/interfaces';
 
 class BoardServiceError extends ServiceError {
 }

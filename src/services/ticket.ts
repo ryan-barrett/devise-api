@@ -1,8 +1,8 @@
 import { Service }          from './service';
 import { logger }           from '../utils/logger';
 import { TicketController } from '../controllers';
-import { ServiceError }     from '../errors';
-import { TicketData }       from '../types/interfaces';
+import { ServiceError } from '../errors';
+import { TicketData }   from '../typing/interfaces';
 
 const ticketStatusTypes: { [key: string]: string } = {
   todo: 'todo',

@@ -1,8 +1,10 @@
-import { Service }        from './service';
-import { logger }         from '../utils/logger';
-import { UserController } from '../controllers';
-import { ServiceError }   from '../errors';
-import { User }           from '../types/types';
+import { app }                 from '../index';
+import { Service }             from './service';
+import { logger }              from '../utils/logger';
+import { UserController }      from '../controllers';
+import { ServiceError }        from '../errors';
+import { User, PromiseStatus } from '../typing';
+
 
 class UserServiceError extends ServiceError {
 }
@@ -17,6 +19,39 @@ export class UserService extends Service {
 
     try {
       return await UserController.Get(userId);
+    }
+    catch (error) {
+      const { message } = error;
+      throw new UserServiceError(500, message, error);
+    }
+  }
+
+  public async getAllBoards(userId: string) {
+    logger.info({ userId }, 'received getAllBoards request');
+
+    try {
+      const { boards: boardIds } = await this.get(userId);
+      const result = await Promise.all(boardIds.map(async (boardId) => {
+        try {
+          const response = await app.callService('BoardService', 'get', [boardId], this.user);
+          return { id: boardId, status: PromiseStatus.Success, response };
+        }
+        catch (error) {
+          logger.info({ error }, 'error calling BoardService from UserService');
+          return { id: boardId, status: PromiseStatus.Failed };
+        }
+      }));
+      logger.info({ result }, 'fetch all boards response');
+
+      const boards = result.map((promiseResponse) => {
+        if (promiseResponse.status === PromiseStatus.Success) {
+          return promiseResponse.response;
+        }
+        else {
+          throw new Error('unable to successfully fetch all boards');
+        }
+      });
+      return boards;
     }
     catch (error) {
       const { message } = error;

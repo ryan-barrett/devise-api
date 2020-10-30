@@ -3,7 +3,7 @@ import { generateId }                   from '../utils/generateId';
 import { TicketModel, UserModel }       from '../models';
 import { validateUser }                 from '../utils/controller';
 import { ControllerError }              from '../errors';
-import { TicketId, TicketData, Ticket } from '../types';
+import { TicketId, TicketData, Ticket } from '../typing';
 
 class TicketControllerError extends ControllerError {
 }

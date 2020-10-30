@@ -1,7 +1,7 @@
 import config                              from 'config';
 import { logger }                          from '../utils/logger';
 import { connection }                      from '../data-sources/couchbase';
-import { BoardId, UserId, UserData, User } from '../types';
+import { BoardId, UserId, UserData, User } from '../typing';
 import { ModelError }                      from '../errors';
 
 const couchbaseConfig: any = config.get('couchbaseConfig');

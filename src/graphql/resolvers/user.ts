@@ -6,6 +6,12 @@ export async function getUser(input: any, context: any) {
   return app.callService('UserService', 'get', [userId], caller);
 }
 
+export async function getBoards(input: any, context: any) {
+  const caller = context.user;
+  const { userId } = input;
+  return app.callService('UserService', 'getAllBoards', [userId], caller);
+}
+
 export async function createUser(input: any, context: any) {
   const caller = context.user;
   const { userName, email, password } = input;

@@ -1,5 +1,5 @@
 import graphqlHTTP       from 'express-graphql';
-import { graphqlConfig } from '../types/interfaces';
+import { graphqlConfig } from '../typing/interfaces';
 import { Server }        from './server';
 import { app }           from '../index';
 import { logger }        from '../utils/logger';

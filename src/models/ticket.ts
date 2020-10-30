@@ -1,6 +1,6 @@
 import config                                            from 'config';
 import { connection }                                    from '../data-sources/couchbase';
-import { BoardId, Ticket, TicketData, TicketId, UserId } from '../types';
+import { BoardId, Ticket, TicketData, TicketId, UserId } from '../typing';
 import { ModelError }                                    from '../errors';
 
 const couchbaseConfig: any = config.get('couchbaseConfig');

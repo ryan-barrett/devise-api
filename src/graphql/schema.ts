@@ -11,6 +11,7 @@ import {
   getTickets,
   createTicket,
   updateTicket,
+  getBoards as getBoardsByUserId,
 }                              from './resolvers';
 
 export default () => {
@@ -78,6 +79,7 @@ input createTicketInput {
 
 type Query {
   getUser(userId: String!): User
+  getBoardsByUserId(userId: String!): [Board]
   getBoard(input: String!): Board
   getTicket(input: String!): Ticket
   getTickets(input: [String!]): [Ticket]
@@ -106,6 +108,7 @@ type Mutation {
       getTickets,
       createTicket,
       updateTicket,
+      getBoardsByUserId,
     },
     graphiql: true,
     customFormatErrorFn,
