@@ -1,9 +1,9 @@
-import { app }                 from '../index';
-import { Service }             from './service';
-import { logger }              from '../utils/logger';
-import { UserController }      from '../controllers';
-import { ServiceError }        from '../errors';
-import { User, PromiseStatus } from '../typing';
+import { app }                         from '../index';
+import { Service }                     from './service';
+import { logger }                      from '../utils/logger';
+import { UserController }              from '../controllers';
+import { ServiceError }                from '../errors';
+import { User, PromiseStatus, UseJwt } from '../typing';
 
 
 class UserServiceError extends ServiceError {
@@ -28,6 +28,10 @@ export class UserService extends Service {
 
   public async getAllBoards(userId: string) {
     logger.info({ userId }, 'received getAllBoards request');
+    if (userId === UseJwt.Value) {
+      // @ts-ignore
+      userId = this.user.id;
+    }
 
     try {
       const { boards: boardIds } = await this.get(userId);
